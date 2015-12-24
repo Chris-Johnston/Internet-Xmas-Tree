@@ -9,7 +9,7 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 
 # Example Usage
 
-[Can be viewed here](https://www.youtube.com/watch?v=ceua6zZA5Oo).
+[Can be viewed here](https://www.youtube.com/watch?v=u5gy0fRYyQE).
 
 ![Screenshot of Webpage](http://puu.sh/m6Xzf/c00de25f42.png "Screenshot of Webpage")
 
