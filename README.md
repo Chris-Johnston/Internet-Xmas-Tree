@@ -9,12 +9,9 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 
 # Example Usage
 
-[Can be viewed here](https://www.youtube.com/watch?v=u5gy0fRYyQE).
+[Old example of Web Interface](https://www.youtube.com/watch?v=u5gy0fRYyQE).
 
-![Screenshot of Webpage](http://puu.sh/m6Xzf/c00de25f42.png "Screenshot of Webpage")
-
-![Screenshot of Webpage](http://puu.sh/m6XCx/b40bd8b1b9.png "Screenshot of Webpage")
-
+![Screenshot of Webpage](http://puu.sh/m7AJj/7616c63f76.png "Screenshot of Webpage")
 
 # Install and Usage
 This project can be easily duplicated for use on multiple setups.
