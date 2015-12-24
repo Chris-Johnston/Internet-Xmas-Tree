@@ -4,10 +4,14 @@
     <meta charset="utf-8" />
     <title>Xmas Tree Color Picker</title>
     <script src="js/jscolor.js"></script>
-</head>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
 <body>
+    <div id="wrapper">
     <h1>X-mas Tree Color Picker</h1>
     
+    <div id="status">
+        You chose the color: 
     <?php
 	$myfile = fopen("colorData", "w+") or die("File error");
     $color = $_GET["color"];
@@ -43,7 +47,9 @@
 		fwrite($myfile, chr($b));
 	}
     fclose($myfile);
-	echo "\nwrote to file";
     ?>
+        </div>
+        <div id="sub"><a href="index.html">Back to the Color Picker</a></div>
+    </div>
 </body>
 </html>

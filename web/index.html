@@ -4,15 +4,24 @@
 <head>
     <meta charset="utf-8" />
     <title>Xmas Tree Color Picker</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
-    <script src="js/jscolor.js"></script>
-    <h1>Xmas Tree Color Picker</h1>
-    <form action="submit.php">
-        <p>Color
-           <input name="color" class="jscolor" />
-        </p>
-        <input type="submit" />
-    </form>
+    <div id="wrapper">
+        <script src="js/jscolor.js"></script>
+        <h1>X-mas Tree Color Picker</h1>
+        <div id="sub">
+            <a href="https://github.com/Chris-Johnston/Internet-Xmas-Tree">By Chris Johnston</a>
+        </div>
+        <form action="submit.php">
+            <p>
+                <span id="instruct">First select a color and then hit submit.</span>
+                <br />
+                Color:
+                <input name="color" class="jscolor" value="000000" required/>
+                <input type="submit" value="Submit" />
+            </p>
+        </form>
+    </div>
 </body>
 </html>

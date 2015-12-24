@@ -1,0 +1,42 @@
+body{
+    background-color: forestgreen;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} 
+
+h1{
+    font-size: 250%;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+#sub, #status{
+    text-align: center;
+}
+
+form{
+    border: 1px solid black;
+    width: 300px;
+    margin: 5px auto;
+    padding: 15px;
+}
+
+input {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100px;
+}
+
+#instruct {
+    color: red;
+    font-weight: bold;
+}
+
+#wrapper{
+    background-color: white;
+    border: 5px solid red;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 50px auto;
+    width: 500px;
+}
