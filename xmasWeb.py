@@ -1,4 +1,4 @@
-# xmasWeb.py
+﻿# xmasWeb.py
 
 import colorsys
 import math
@@ -14,7 +14,7 @@ LED_DMA		= 5 # DMA channel for generating signal
 LED_BRIGHTNESS	= 20 # Between 0 and 255, if used with something like 600 leds, have the brightness no more than ~75
 LED_INVERT	= False
 
-UPDATE_INTERVAL = 0.5 # how frequently to read the file and check for updates to the color data
+UPDATE_INTERVAL = 0.0 # how frequently to read the file and check for updates to the color data
 FILE_PATH = "web/colorData"
 
 colors = [0 for c in range(LED_COUNT)]
@@ -53,7 +53,7 @@ def RGB(r, g, b):
 
 # returns the 24 bit color value based off of a tuple of (r, g, b) byte values
 def RGBTuple(tuple):
-	return RGB(tuple[0] * 255, tuple[1] * 255, tuple[2] * 255)
+	return RGB(tuple[0], tuple[1], tuple[2])
 
 # returns the r value from a 24 bit color value
 def getR(value):
@@ -71,22 +71,23 @@ def clamp(n, smallest = 0, largest = 255):
 # makes a color wipe up from the bottom, with length speed seconds
 def wipeUp(color, speed = 5):
 	for x in range (LED_COUNT - 1):
-		colors[x] = color
+		colors[x] = RGBTuple(color)
 		time.sleep(float(speed / float(LED_COUNT)))
-	return
 # color wipe from the top, length speed seconds
 def wipeDown(color, speed = 5):
 	for x in range(LED_COUNT):
-		colors[LED_COUNT - 1 - x] = color
+		colors[LED_COUNT - 1 - x] = RGBTuple(color)
 		time.sleep(float(speed / float(LED_COUNT)))
-	return
 
 def setAllColor(color):
-	colors = [color for c in range(LED_COUNT)]	
+	#colors = [color for c in range(LED_COUNT)]	
+	for x in range(LED_COUNT):
+		colors[x] = color
 
 def setAllColorTuple(colorTuple):
-	for x in range(LED_COUNT):
-		colors[x] = RGBTuple(colorTuple)
+	setAllColor(RGBTuple(colorTuple))
+	#for x in range(LED_COUNT):
+	#	colors[x] = RGBTuple(colorTuple)
 
 # clears all of the color values and turns off the led strip
 def cleanup():
@@ -101,10 +102,10 @@ def cleanup():
 	strip.show()
 
 def randomBlinker(amount = 60, delay = 0.02, colorForeground = RGB(255, 255, 255), colorBackground = RGB(0,0,0)):
-	#setAllColor(colorBackground)
-	for led in range(amount):
+	setAllColorTuple(colorBackground)
+	for led in range(int(amount)):
 		num = int(random.random() * 600)
-		colors[num] = colorForeground
+		colors[num] = RGBTuple(colorForeground)
 	time.sleep(delay)
 
 # value is between 0 and 1, 0 is color1, 1 is color2, between that is a blend between them
@@ -118,6 +119,22 @@ def makeThread(Target, Args):
 	threads.append(t)
 	t.start()
 
+tc = 0
+def twoColorScroll(color1, color2, width, delay):
+	global tc
+	tc = tc + 1
+	if(tc > 2 * width - 1):
+		tc = 0
+	for led in range (LED_COUNT):
+		if(int((tc + led) / width % 2) == 1):
+			colors[led] = RGBTuple(color1)
+		else:
+			colors[led] = RGBTuple(color2)
+	time.sleep(delay / 1000.0 + UPDATE_INTERVAL)
+
+def getRandomColor():
+	return (255 * random.random(), 255 * random.random(), 255 * random.random())
+
 if __name__ == "__main__":
 	# Create NeoPixel object with appropriate configuration.
 	strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
@@ -125,23 +142,97 @@ if __name__ == "__main__":
 	strip.begin()
 	# start drawing thread
 	drawTh = drawThread()
+	color1 = (0,0,0)
+	twoColorScrollCounter = 0
+	color2 = (0,0,0)
+	pattern = 0
+	random1 = 0
+	random2 = 0
+	length = 0
+	delay = 0
 	print "Press Ctrl-C to quit"
 	try:
 		while True:
-			red = 0
-			green = 0
-			blue = 0
+			# R, G, B Color 1 Bytes, R, G, B Color 2 Bytes, Random Flag 1, Random Flag 2, Pattern Byte, 
+			# Length Value 
+			# Delay Value
 			with open(FILE_PATH, "rb") as f:
-				data = f.read(3)
+				dataBytes = f.readline()
+				try:
+					length = float(f.readline())
+				except ValueError:
+					length = 15
+				try:
+					delay = float(f.readline())
+				except ValueError:
+					delay = 100
 				f.close()
-				red = int(data[0].encode('hex'), 16)
-				green = int(data[1].encode('hex'), 16)
-				blue = int(data[2].encode('hex'), 16)
-				color = RGB(red,green,blue)
-				for x in range (LED_COUNT):
-					colors[x] = color
-			time.sleep(UPDATE_INTERVAL)
+				
+				r = int(dataBytes[0].encode('hex'), 16)
+				g = int(dataBytes[1].encode('hex'), 16)
+				b = int(dataBytes[2].encode('hex'), 16)
+				
+				color1 = (r, g, b)
 
+				r = int(dataBytes[3].encode('hex'), 16)
+				g = int(dataBytes[4].encode('hex'), 16)
+				b = int(dataBytes[5].encode('hex'), 16)
+				
+				color2 = (r, g, b)
+
+				random1 = int(dataBytes[6].encode('hex'), 16)
+				random2 = int(dataBytes[7].encode('hex'), 16)
+				
+				pattern = int(dataBytes[8].encode('hex'), 16)
+
+			#print ""
+			#print color1
+			#print color2
+			#print (pattern, length, delay)
+
+			if(random1 == 1):
+				#print "rand 1"
+				color1 = getRandomColor()
+			if(random2 == 1):
+				#print "rand 2"
+				color2 = getRandomColor()
+
+			if(pattern == 0):
+				# solid color
+				setAllColorTuple(color1)
+				#print "solid color ", color1
+			elif(pattern == 1):
+				#blink colors
+				setAllColorTuple(color1)
+				#print "color1"
+				time.sleep(UPDATE_INTERVAL + delay / 1000.0)
+				setAllColorTuple(color2)
+				#print "color2"
+			elif(pattern == 2):
+				# Scroll Colors
+				#print "2 color scroll"
+				twoColorScroll(color1, color2, length, delay)
+			elif(pattern == 3):
+				# wipe up
+				wipeUp(color1, delay / 1000.0)
+				#print "wipe c1"
+				time.sleep(UPDATE_INTERVAL + delay / 1000.0)
+				#print "wipe c2"
+				wipeUp(color2, delay / 1000.0)
+			elif(pattern == 4):
+				# wipe down
+				#print "wipe c1"
+				wipeDown(color1, delay / 1000.0)
+				time.sleep(UPDATE_INTERVAL + delay / 1000.0)
+				#print "wipe c2"
+				wipeDown(color2, delay / 1000.0)
+			elif(pattern == 5):
+				t = time.time()
+				#print "blinker"
+				while (time.time() - t < 5):
+					randomBlinker(length, delay / 1000.0, color1, color2)
+			if(pattern != 5):
+				time.sleep(UPDATE_INTERVAL + delay / 1000.0)
 	except (KeyboardInterrupt, SystemExit):
 		print "End of program"
 		drawTh.canRun = False		

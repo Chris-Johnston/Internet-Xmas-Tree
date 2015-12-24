@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,12 +13,41 @@
         <div id="sub">
             <a href="https://github.com/Chris-Johnston/Internet-Xmas-Tree">By Chris Johnston</a>
         </div>
-        <form action="submit.php">
+
+        <form id="lightForm" action="submit.php">
             <p>
-                <span id="instruct">First select a color and then hit submit.</span>
+                <span id="instruct">Fill out the form and Submit.</span>
                 <br />
-                Color:
-                <input name="color" class="jscolor" value="000000" required/>
+                Select a pattern:
+                <select name="pattern" form="lightForm" onchange="updateLabels()" id="selectPattern">
+                    <option value="0">Solid Color #1</option>
+                    <option value="1">Blink Colors</option>
+                    <option value="2">Scroll Colors</option>
+                    <option value="3">Wipe Up</option>
+                    <option value="4">Wipe Down</option>
+                    <option value="5">Random Blinker</option>
+                    <!-- TODO Add more Patterns -->
+                </select>
+                <br />
+
+                Color #1:
+                <input name="color1" class="jscolor" value="00FF00" required/>
+                Random:
+                <input name="random1" type="checkbox" />
+                <br />
+
+                Color #2:
+                <input name="color2" class="jscolor" value="FF0000" />
+                Random:
+                <input name="random2" type="checkbox" />
+                <br />
+
+                Length:
+                <input name="length" type="number" min="1" max="1000" value="15" class="inputNumber"/>
+                Delay (ms):
+                <input name="delay" type="number" min="1" max="5000" value="100" class="inputNumber"/>
+                <br />
+
                 <input type="submit" value="Submit" />
             </p>
         </form>

@@ -16,12 +16,20 @@ h1{
 
 form{
     border: 1px solid black;
-    width: 300px;
+    width: 400px;
     margin: 5px auto;
     padding: 15px;
 }
 
-input {
+form > p{
+    line-height: 2.5em;
+}
+
+.inputNumber{
+    width: 75px;
+}
+
+. jscolor{
     margin-left: 10px;
     margin-right: 10px;
     width: 100px;
