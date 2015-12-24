@@ -11,9 +11,10 @@ LED_COUNT 	= 600 # Number of LEDS
 LED_PIN 	= 18 # GPIO pin connected to the pixels
 LED_FREQ_HZ	= 800000 # LED signal frequency in hz
 LED_DMA		= 5 # DMA channel for generating signal
-LED_BRIGHTNESS	= 10 # Between 0 and 255, if used with something like 600 leds, have the brightness no more than ~75
+LED_BRIGHTNESS	= 20 # Between 0 and 255, if used with something like 600 leds, have the brightness no more than ~75
 LED_INVERT	= False
 
+UPDATE_INTERVAL = 0.5 # how frequently to read the file and check for updates to the color data
 FILE_PATH = "web/colorData"
 
 colors = [0 for c in range(LED_COUNT)]
@@ -133,17 +134,13 @@ if __name__ == "__main__":
 			with open(FILE_PATH, "rb") as f:
 				data = f.read(3)
 				f.close()
-				print data
 				red = int(data[0].encode('hex'), 16)
 				green = int(data[1].encode('hex'), 16)
 				blue = int(data[2].encode('hex'), 16)
-				print "red ", red
-				print "green ", green
-				print "blue ", blue
 				color = RGB(red,green,blue)
 				for x in range (LED_COUNT):
 					colors[x] = color
-			time.sleep(5)
+			time.sleep(UPDATE_INTERVAL)
 
 	except (KeyboardInterrupt, SystemExit):
 		print "End of program"
