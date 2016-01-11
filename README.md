@@ -9,6 +9,12 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 
 # Example Usage
 
+![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/DSC02054.JPG)
+
+![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/20151220-DSC02061crop.jpg)
+
+![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/raspberry%20pi%20tree.jpg)
+
 [Old example of Web Interface](https://www.youtube.com/watch?v=u5gy0fRYyQE).
 
 ![Screenshot of Webpage](http://puu.sh/m7AJj/7616c63f76.png "Screenshot of Webpage")
