@@ -70,7 +70,7 @@ def clamp(n, smallest = 0, largest = 255):
 	return max(smallest, min(n, largest))
 # makes a color wipe up from the bottom, with length speed seconds
 def wipeUp(color, speed = 5):
-	for x in range (LED_COUNT - 1):
+	for x in range (LED_COUNT):
 		colors[x] = RGBTuple(color)
 		time.sleep(float(speed / float(LED_COUNT)))
 # color wipe from the top, length speed seconds
