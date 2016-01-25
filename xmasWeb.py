@@ -83,15 +83,15 @@ def wipeDown(color, speed = 5):
 def larsonScanner(width = 5, speed = 4, colorForeground = RGB(255, 0,0), colorBackground = RGB(0,0,0)):
 	# first wipe up
 	for x in range(LED_COUNT - width):
-		setAllColor(colorBackground)
+		setAllColor(RGBTuple(colorBackground))
 		for i in range(width):
-			colors[x + i] = colorForeground
+			colors[x + i] = RGBTuple(colorForeground)
 		time.sleep(float((speed / 2.0) / (LED_COUNT - width)))
 	# then wipe down
 	for x in range(LED_COUNT - width):
-		setAllColor(colorBackground)
+		setAllColor(RGBTuple(colorBackground))
 		for i in range(width):
-			colors[LED_COUNT - 1 - x + i] = colorForeground
+			colors[LED_COUNT - 1 - x + i] = RGBTuple(colorForeground)
 		time.sleep(float((speed / 2.0) / (LED_COUNT - width)))
 
 def setAllColor(color):
