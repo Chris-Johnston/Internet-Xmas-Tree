@@ -79,6 +79,21 @@ def wipeDown(color, speed = 5):
 		colors[LED_COUNT - 1 - x] = RGBTuple(color)
 		time.sleep(float(speed / float(LED_COUNT)))
 
+# a "larson scanner" styled pattern	
+def larsonScanner(width = 5, speed = 4, colorForeground = RGB(255, 0,0), colorBackground = RGB(0,0,0)):
+	# first wipe up
+	for x in range(int(LED_COUNT - width)):
+		setAllColorTuple(colorBackground)
+		for i in range(int(width)):
+			colors[x + i] = RGBTuple(colorForeground)
+		time.sleep(float((speed / 2.0) / (LED_COUNT - width)))
+	# then wipe down
+	for x in range(int(LED_COUNT - width)):
+		setAllColorTuple(colorBackground)
+		for i in range(int(width)):
+			colors[LED_COUNT - 1 - x + i] = RGBTuple(colorForeground)
+		time.sleep(float((speed / 2.0) / (LED_COUNT - width)))
+
 def setAllColor(color):
 	#colors = [color for c in range(LED_COUNT)]	
 	for x in range(LED_COUNT):
@@ -226,12 +241,17 @@ if __name__ == "__main__":
 				time.sleep(UPDATE_INTERVAL + delay / 1000.0)
 				#print "wipe c2"
 				wipeDown(color2, delay / 1000.0)
+			elif(pattern == 6):
+				# larson scanner
+				larsonScanner(length, delay, color1, color2)
 			elif(pattern == 5):
 				t = time.time()
 				#print "blinker"
 				while (time.time() - t < 5):
 					randomBlinker(length, delay / 1000.0, color1, color2)
 			if(pattern != 5):
+				# random blinker works differently, and to prevent it from constantly reading over
+				# and over again, only have it update every now and then
 				time.sleep(UPDATE_INTERVAL + delay / 1000.0)
 	except (KeyboardInterrupt, SystemExit):
 		print "End of program"
