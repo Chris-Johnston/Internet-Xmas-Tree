@@ -15,7 +15,11 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 
 ![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/raspberry%20pi%20tree.jpg)
 
-[Old example of Web Interface](https://www.youtube.com/watch?v=u5gy0fRYyQE).
+[Old example of Web Interface](https://youtu.be/gIETAGKKV80).
+
+[Example of lights in use, however not all patterns shown are in this program.](https://youtu.be/rzU7GU4T2Bk)
+
+Proper video coming... *soon*.
 
 ![Screenshot of Webpage](http://puu.sh/m7AJj/7616c63f76.png "Screenshot of Webpage")
 
