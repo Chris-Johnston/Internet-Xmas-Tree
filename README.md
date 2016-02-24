@@ -9,6 +9,8 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 
 # Example Usage
 
+[Demo reel of various patterns.](https://www.youtube.com/watch?v=5M3lig-fI4s)
+
 ![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/DSC02054.JPG)
 
 ![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/20151220-DSC02061crop.jpg)
@@ -17,21 +19,16 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 
 [Old example of Web Interface](https://youtu.be/gIETAGKKV80).
 
-[Example of lights in use, however not all patterns shown are in this program.](https://youtu.be/rzU7GU4T2Bk)
-
-Proper video coming... *soon*.
-
 ![Screenshot of Webpage](http://puu.sh/m7AJj/7616c63f76.png "Screenshot of Webpage")
 
 # Install and Usage
-This project can be easily duplicated for use on multiple setups.
 
 ## Dependencies
 
 Requires the [rpi\_ws281x python package by jgarff](https://github.com/jgarff/rpi_ws281x).
-Ensure that your led strip is working properly first.
+Ensure that your led strip is working properly first. This package contains example files to do so.
 
-Requires a webserver that supports php.
+Requires a webserver that supports php. I used apache.
 
 Either clone the repository or download a ZIP with the contents.
 
@@ -45,13 +42,11 @@ At the top of `xmasWeb.py` the variables `LED_BRIGHTNESS` and `LED_COUNT` should
 
 The Pi requires programs that make changes to the GPIO be run as root.
 
-Once the program is started, the led strip should light up with the color picked from the website.
+Once the program is started, the led strip should light up with the correct color and pattern.
 
-**If it doesn't work**, try ensuring that permissions for the folder are set properly for the user `www-data` or whatever your webserver uses.
+**If it doesn't work**, try ensuring that permissions for the folder are set properly for the user `www-data` or whatever your webserver uses. Ensure that both the web server and python script are running.
 
 # Authors
 Uses [jscolor](http://jscolor.com/) under the [GNU GPL license v3](http://www.gnu.org/licenses/gpl-3.0.en.html) for the color picker on the HTML form page.
 
 Everything else by Chris Johnston 12/23/2015
-
-
