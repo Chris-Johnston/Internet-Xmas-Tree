@@ -2,14 +2,14 @@
 import Configuration
 import json
 from watchdog.observers import Observer
-from watchdog.events import FileSysteEventHandler
+from watchdog.events import FileSystemEventHandler
 
 import logging
 logger = logging.getLogger(__name__)
 
 class WebData(object):
 
-    class FileChangedHandler(FileSysteEventHandler):
+    class FileChangedHandler(FileSystemEventHandler):
         def __init__(self, outer):
             self.outerInstance = outer
         def onMod(self, event):

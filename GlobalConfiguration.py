@@ -1,10 +1,10 @@
-import configparser
+﻿import configparser
 
 import logging
 logger = logging.getLogger(__name__)
 #todo logging
 
-class Configuration(object):
+class GlobalConfiguration(object):
     Patterns = {}
     LEDCount = 600
     Brightness = 20
