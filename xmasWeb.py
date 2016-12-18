@@ -41,7 +41,7 @@ if __name__ == "__main__":
     global drawThread
 
     # load the configuration data
-    config = Configuration()
+    config = GlobalConfiguration()
     config.load()
 
     #define the strip data
