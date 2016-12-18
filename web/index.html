@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -11,10 +10,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.js"></script>
         <h1>X-mas Tree Color Picker</h1>
         <div id="sub">
-            <a href="https://github.com/Chris-Johnston/Internet-Xmas-Tree">By Chris Johnston</a>
+            <a href="https://github.com/Chris-Johnston/Internet-Xmas-Tree">github.com/Chris-Johnston/Internet-Xmas-Tree</a>
         </div>
 
-        <form id="lightForm" action="submit.php">
+        <!-- action="submit.php" -->
+        <form id="lightForm" >
             <p>
                 <span id="instruct">Fill out the form and Submit.</span>
                 <br />
@@ -49,9 +49,27 @@
                 <input name="delay" type="number" min="1" max="60000" value="100" class="inputNumber"/>
                 <br />
 
-                <input type="submit" value="Submit" />
+                <input id="btnSubmit" type="submit" value="Submit" />
+                <div id="callbackValue"></div>
             </p>
         </form>
     </div>
+
+    <script type="text/javascript">
+        document.getElementById("btnSubmit").addEventListener("click", getRequest);
+        // http://stackoverflow.com/questions/247483/http-get-request-in-javascript
+        function getRequest()
+        {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function()
+            {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    document.getElementById("callbackValue").innerHTML = xmlHttp.responseText;
+            }
+            xmlHttp.open("GET", "set.php", true);
+            xmlHttp.send(null);
+        }
+
+    </script>
 </body>
 </html>
