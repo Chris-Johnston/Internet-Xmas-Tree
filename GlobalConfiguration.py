@@ -23,8 +23,8 @@ class GlobalConfiguration(object):
         c.read("configuration.ini")
 
         try:
-           self.Brightness = c.get("Configuration", "LED_BRIGHTNESS")
-           self.LEDCount = c.get("Configuration", "NUMBER_OF_LEDS")
+           self.Brightness = int( c.get("Configuration", "LED_BRIGHTNESS"))
+           self.LEDCount = int( c.get("Configuration", "NUMBER_OF_LEDS"))
            self.DataFile = c.get("Configuration", "DATA_PATH")
            self.Patterns = dict(c.items("Patterns"))
         except Exception as e:

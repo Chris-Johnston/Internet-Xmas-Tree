@@ -1,10 +1,10 @@
 ﻿#!/usr/bin/env python2.7
 
 # Configuration.py
-import Configuration
-import WebData
-import DrawThread
-import UpdateThread
+from GlobalConfiguration import GlobalConfiguration
+from WebData import WebData
+from DrawThread import DrawThread
+from UpdateThread import UpdateThread
 
 # import the rpi_ws281x library
 # make sure this is set up first
