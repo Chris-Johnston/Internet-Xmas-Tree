@@ -57,9 +57,13 @@
     </div>
 
     <script type="text/javascript">
+	console.log("TEST");
         function val(str)
         {
-            return document.getElementById(str).value;
+
+		console.log("getting " + str);
+		return document.forms[0].elements[str].value;
+//            return document.getElementById(str).value;
         }
 
         document.getElementById("btnSubmit").addEventListener("click", getRequest);
@@ -70,11 +74,16 @@
             xmlHttp.onreadystatechange = function()
             {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+		{
                     document.getElementById("callbackValue").innerHTML = xmlHttp.responseText;
+			console.log("GOT BACK");
+		}
             }
             var request ="set.php?color1=" + val("color1") + "&color2=" + val("color2") + "&pattern=" + val("pattern") + "&random1=" + val("random1") + "&random2=" + val("random2") + "&length=" + val("length") + "&delay=" + val("delay");
-            xmlHttp.open("GET", "set.php", true);
+            console.log("NEW REQUEST: " + request);
+            xmlHttp.open("GET", request, true);
             xmlHttp.send(null);
+            console.log("SENT!");
         }
 
     </script>

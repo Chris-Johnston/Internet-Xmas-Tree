@@ -3,8 +3,8 @@
 # Configuration.py
 from GlobalConfiguration import GlobalConfiguration
 from WebData import WebData
-from DrawThread import DrawThread
-from UpdateThread import UpdateThread
+#from DrawThread import DrawThread
+#from UpdateThread import UpdateThread
 
 # import the rpi_ws281x library
 # make sure this is set up first
@@ -32,17 +32,32 @@ LED_DMA        = 5 # DMA channel for generating signal
 LED_INVERT    = False
 
 # globals
-global strip
+#global strip
 global stripData
 global config
 global webData
 global updateThread
 global drawThread
 
+# start stuff
+# load the configuration data
+config = GlobalConfiguration()
+config.load()
+
+#define the strip data
+stripData = [0 for c in range(config.LEDCount)]
+
+# Create the NeoPixel strip
+strip = Adafruit_NeoPixel(config.LEDCount, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, config.Brightness)
+strip.begin()
+# define web data
+webData = WebData(config)
+
+
 # update thread stuff
 class UpdateThread(object):
 
-    def __init__(self):#stripData, webData, configurationFile):
+    def __init__(self):
         self.canRun = True
         self.thread = threading.Thread(target=self.run, args=())
         self.thread.daemon = True
@@ -56,9 +71,10 @@ class UpdateThread(object):
             try:
                 # for now just set everything to color1
                 for x in range(config.LEDCount):
-                    strip[x] = web.color1
+                    #logging.info("UPDATE PIXEL " + str(x) + " val " + str( webData.color1));
+                    stripData[x] = webData.color1
             except Exception as e:
-                logging.error(e)
+                logging.error("Exception " + str(e))
 
 # draw thread stuff
 class DrawThread(object):
@@ -76,30 +92,18 @@ class DrawThread(object):
             try:
                 for x in range(config.LEDCount):
                     try:
-                        if(stripData[x] >= 0 and stripData[x] <= (255 << 16 | 255 << 8 | 255)):
-                            strip.setPixelColor(x, stripData[x])
+                        #logging.info("DRAW RUN")
+                        #if(stripData[x] >= 0 and stripData[x] <= (255 << 16 | 255 << 8 | 255)):
+                        if True:
+                            #logging.info("SET PIXEL " + str(x) + "val " + str(int(stripData[x], 16)))
+                            strip.setPixelColor(x, int(stripData[x], 16))
                     except OverflowError:
                         logging.error("Led Overflow error")
                 strip.show()
             except Exception as e:
-                logging.error(e)
+                logging.error("err1" + str(e))
 
 if __name__ == "__main__":
-    
-    # load the configuration data
-    config = GlobalConfiguration()
-    config.load()
-
-    #define the strip data
-    stripData = [0 for c in range(config.LEDCount)]
-
-    # Create the NeoPixel strip
-    strip = Adafruit_NeoPixel(config.LEDCount, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, config.Brightness)
-    strip.begin()
-
-    # define web data
-    webData = webData(config)
-
     # Intialize the library (must be called once before other functions).
     strip.begin()
 
