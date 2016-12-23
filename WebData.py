@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 import Configuration
 import json
 from watchdog.observers import Observer

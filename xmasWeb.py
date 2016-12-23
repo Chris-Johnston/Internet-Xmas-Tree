@@ -31,15 +31,61 @@ LED_DMA        = 5 # DMA channel for generating signal
 #LED_BRIGHTNESS    = 20 # Between 0 and 255, if used with something like 600 leds, have the brightness no more than ~75
 LED_INVERT    = False
 
-if __name__ == "__main__":
-    # define globals
-    global strip
-    global stripData
-    global config
-    global webData
-    global updateThread
-    global drawThread
+# globals
+global strip
+global stripData
+global config
+global webData
+global updateThread
+global drawThread
 
+# update thread stuff
+class UpdateThread(object):
+
+    def __init__(self):#stripData, webData, configurationFile):
+        self.canRun = True
+        self.thread = threading.Thread(target=self.run, args=())
+        self.thread.daemon = True
+        self.thread.start()
+
+    def stop(self):
+        self.canRun = False
+
+    def run(self):
+        while self.canRun:
+            try:
+                # for now just set everything to color1
+                for x in range(config.LEDCount):
+                    strip[x] = web.color1
+            except Exception as e:
+                logging.error(e)
+
+# draw thread stuff
+class DrawThread(object):
+    def __init__(self):
+        self.canRun = True
+        self.thread = threading.Thread(target=self.run, args=())
+        self.thread.daemon = True
+        self.thread.start()
+
+    def stop(self):
+        self.canRun = False
+
+    def run(self):
+        while self.canRun:
+            try:
+                for x in range(config.LEDCount):
+                    try:
+                        if(stripData[x] >= 0 and stripData[x] <= (255 << 16 | 255 << 8 | 255)):
+                            strip.setPixelColor(x, stripData[x])
+                    except OverflowError:
+                        logging.error("Led Overflow error")
+                strip.show()
+            except Exception as e:
+                logging.error(e)
+
+if __name__ == "__main__":
+    
     # load the configuration data
     config = GlobalConfiguration()
     config.load()
@@ -58,10 +104,10 @@ if __name__ == "__main__":
     strip.begin()
 
     #start update thread
-    updateThread = UpdateThread(stripData, webData, config)
+    updateThread = UpdateThread()
 
     # start draw thread
-    drawThread = DrawThread(stripData, config, strip)
+    drawThread = DrawThread()
 
     # loop
     try:

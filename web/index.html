@@ -50,7 +50,6 @@
                 <br />
 
                 <!--<input id="btnSubmit" type="submit" value="Submit" />-->
-                
             </p>
         </form>
         <button id="btnSubmit">Submit</button>
@@ -58,6 +57,11 @@
     </div>
 
     <script type="text/javascript">
+        function val(str)
+        {
+            return document.getElementById(str).value;
+        }
+
         document.getElementById("btnSubmit").addEventListener("click", getRequest);
         // http://stackoverflow.com/questions/247483/http-get-request-in-javascript
         function getRequest()
@@ -68,6 +72,7 @@
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                     document.getElementById("callbackValue").innerHTML = xmlHttp.responseText;
             }
+            var request ="set.php?color1=" + val("color1") + "&color2=" + val("color2") + "&pattern=" + val("pattern") + "&random1=" + val("random1") + "&random2=" + val("random2") + "&length=" + val("length") + "&delay=" + val("delay");
             xmlHttp.open("GET", "set.php", true);
             xmlHttp.send(null);
         }
