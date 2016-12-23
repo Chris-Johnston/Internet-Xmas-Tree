@@ -69,6 +69,76 @@ class UpdateThread(object):
     def run(self):
         while self.canRun:
             try:
+                # this is where I compare the values of web data pattern
+                # to those in the configuration
+                if webData.pattern == config.Patterns.get("PATTERN_SOLID"):
+                    # set solid color
+                    for x in range(config.LEDCount):
+                        stripData[x] = webData.color1
+                elif webData.pattern == config.Patterns.get("PATTERN_BLINK"):
+                    # set all color 1
+                    for x in range(config.LEDCount):
+                        stripData[x] = webData.color1
+                    # wait
+                    time.sleep(webData.delay)
+                    # set all color 2
+                    for x in range(config.LEDCount):
+                        stripData[x] = webData.color2
+                    # wait
+                    time.sleep(webData.delay / 1000)
+                elif webData.pattern == config.Patterns.get("PATTERN_SCROLL"):
+                    # iterate through
+                    for x in range(config.LEDCount):
+                        # default color 1
+                        color = webData.color1
+                        # offset by time, x pos divided by length mod 2
+                        # time.time is in seconds not ms
+                        # sets color 2
+                        if (time.time() / 1000.0 / webData.delay + x / webData.length) % 2 == 1:
+                            color = webData.color2
+                        # set color
+                        stripData[x] = color
+                elif webData.pattern == config.Patterns.get("PATTERN_WIPEUP"):
+                    # wipe color 1 first
+                    for x in range(config.LEDCount):
+                        stripData[x] = webData.color1
+                        # set the color and wait after each set
+                        time.sleep(webData.delay / 1000)
+                    for x in range(config.LEDCount):
+                        stripData[x] = webData.color2
+                        # set the color and wait after each set
+                        time.sleep(webData.delay / 1000)
+                elif webData.pattern == config.Patterns.get("PATTERN_WIPEDOWN"):
+                    # does the same as wipe up but is backwards
+                    # wipe color 1 first
+                    for x in reversed(range(config.LEDCount)):
+                        stripData[x] = webData.color1
+                        # set the color and wait after each set
+                        time.sleep(webData.delay / 1000)
+                    for x in reversed(range(config.LEDCount)):
+                        stripData[x] = webData.color2
+                        # set the color and wait after each set
+                        time.sleep(webData.delay / 1000)
+                elif webData.pattern == config.Patterns.get("PATTERN_RANDOM"):
+                    # set all to color2
+                    for x in range(config.LEDCount):
+                        stripData[x] = webData.color2
+                    # iterate through length times
+                    for x in range(webData.length):
+                        # randomly pick an led and set it to color1
+                        i = random.randint(0, config.LEDCount - 1 )
+                        stripData[i] = webData.color1
+                    time.sleep(webData.delay / 1000)
+                elif webData.pattern == config.Patterns.get("PATTERN_LARSON"):
+                    # set all to color2
+                    for x in range(config.LEDCount):
+                        stripData[x] = webData.color2
+                    # calculate lit area
+                    center = config.LEDCount / 2 + ((config.LEDCount / 2) - webData.length) * math.sin(math.PI * 2 * time.time() / 1000 / webData.delay)
+                    # set the values for the given width
+                    for x in range(-1 * webData.length, webData.length):
+                        stripData[center + x] = webData.color1
+
                 # for now just set everything to color1
                 for x in range(config.LEDCount):
                     #logging.info("UPDATE PIXEL " + str(x) + " val " + str( webData.color1));
