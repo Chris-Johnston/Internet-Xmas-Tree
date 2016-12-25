@@ -34,6 +34,10 @@ LED_DMA        = 5 # DMA channel for generating signal
 #LED_BRIGHTNESS    = 20 # Between 0 and 255, if used with something like 600 leds, have the brightness no more than ~75
 LED_INVERT    = False
 
+# fast linear sin approx
+def fastApprox(val):
+    return 1.0 - math.fabs( math.fmod(val, 2.0) - 1.0)
+
 # globals
 #global strip
 global stripData
@@ -72,6 +76,15 @@ class UpdateThread(object):
     def run(self):
         while self.canRun:
             try:
+                color1 = webData.color1
+                color2 = webData.color2
+                
+                if webData.isRandom1:
+                    color1 = hsv(random.random(), 1, 1)
+                    #logging.info("RAND C1 " + str(color1))
+                if webData.isRandom2:
+                    color2 = hsv(random.random(), 1, 1)
+                    #logging.info("RAND C2 " + str(color2))
                 # this is where I compare the values of web data pattern
                 #logging.info(webData.pattern)
                 #logging.info(str(config.Patterns))
@@ -81,25 +94,36 @@ class UpdateThread(object):
                     #logging.info("SOLID COLOR")
                     # set solid color
                     for x in range(config.LEDCount):
-                        stripData[x] = webData.color1
+                        stripData[x] = color1
+                if webData.pattern == int(config.Patterns.get("pattern_pulse")):
+                    amp = math.sin(time.time() * 1000.0 / float(webData.delay))
+                    color = color1
+                    if amp < 0:
+                        color = color2
+                    color = multiplyArray(color, math.fabs(amp))
+                    for x in range(config.LEDCount):
+                        stripData[x] = color
                 if webData.pattern == int(config.Patterns.get("pattern_blink")):
                     #logging.info("BLINK")
                     # set all color 1
                     for x in range(config.LEDCount):
-                        stripData[x] = webData.color1
+                        stripData[x] = color1
                     # wait
                     time.sleep(webData.delay / 1000.0)
                     #logging.info("BLINK CHANGE")
                     # set all color 2
                     for x in range(config.LEDCount):
-                        stripData[x] = webData.color2
+                        stripData[x] = color2
                     # wait
                     time.sleep(webData.delay / 1000.0)
                 if webData.pattern == int(config.Patterns.get("pattern_scrollsmooth")):
+                    #logging.info("Smooth")
                     for x in range(config.LEDCount):
-                        c1 = multiplyArray(webData.color1, math.sin( 6.28 * webData.length * x / float(config.LEDCount) +  time.time() / 1000.0 / float(webData.delay)))
-                        c2 = multiplyArray(webData.color2, math.sin( 6.28 * webData.length * x / float(config.LEDCount) + 3.14 + time.time() / 1000.0 / float(webData.delay)))
-                        stripData[x] = addArray(c1, c2)
+                        c1 = multiplyArray(color1, fastApprox(x / float(webData.length + 1) + float(time.time()) * 1000.0 / float(webData.delay)))
+                        c2 = multiplyArray(color2, fastApprox(x / float(webData.length + 1) + 1 + float(time.time()) * 1000.0 / float(webData.delay)))
+                        c3 = rgbToTuple(c1[0] + c2[0], c1[1] + c2[1], c1[2] + c2[2])
+                        #stripData[x] = addArray(c1, c2)
+                        stripData[x] = c3
                 if webData.pattern == int(config.Patterns.get("pattern_scroll")):
                     # iterate through
                     for x in range(config.LEDCount):
@@ -109,49 +133,55 @@ class UpdateThread(object):
                         # time.time is in seconds not ms
                         # sets color 2
                         if (time.time() / 1000.0 * float(webData.delay) + x / float(webData.length + 1)) % 2 == 1:
-                            color = webData.color2
+                            color = color2
                         # set color
                         stripData[x] = color
                 if webData.pattern == int(config.Patterns.get("pattern_wipeup")):
                     # wipe color 1 first
                     for x in range(config.LEDCount):
-                        stripData[x] = webData.color1
+                        stripData[x] = color1
                         # set the color and wait after each set
                         time.sleep(webData.delay / 1000.0 / float(config.LEDCount))
                     for x in range(config.LEDCount):
-                        stripData[x] = webData.color2
+                        stripData[x] = color2
                         # set the color and wait after each set
                         time.sleep(webData.delay / 1000.0 / float(config.LEDCount))
                 if webData.pattern == int(config.Patterns.get("pattern_wipedown")):
                     # does the same as wipe up but is backwards
                     # wipe color 1 first
                     for x in reversed(range(config.LEDCount)):
-                        stripData[x] = webData.color1
+                        stripData[x] = color1
                         # set the color and wait after each set
                         time.sleep(webData.delay / 1000.0 / float(config.LEDCount))
                     for x in reversed(range(config.LEDCount)):
-                        stripData[x] = webData.color2
+                        stripData[x] = color2
                         # set the color and wait after each set
                         time.sleep(webData.delay / 1000.0 / float(config.LEDCount))
                 if webData.pattern == int(config.Patterns.get("pattern_random")):
+                    #logging.info("RANDOM")
                     # set all to color2
                     for x in range(config.LEDCount):
-                        stripData[x] = webData.color2
+                        stripData[x] = color2
                     # iterate through length times
+                    #logging.info(str(webData.length))
                     for x in range(webData.length):
                         # randomly pick an led and set it to color1
                         i = random.randint(0, config.LEDCount - 1 )
-                        stripData[i] = webData.color1
+                        #logging.info(str(i))
+                        stripData[i] = color1
+
                     time.sleep(webData.delay / 1000.0)
                 if webData.pattern == int(config.Patterns.get("pattern_larson")):
+                    #logging.info("larson")
                     # set all to color2
                     for x in range(config.LEDCount):
-                        stripData[x] = webData.color2
+                        stripData[x] = color2
                     # calculate lit area
-                    center = config.LEDCount / 2 + ((config.LEDCount / 2) - webData.length) * math.sin(6.28 * time.time() / 1000.0 / float(webData.delay))
+                    center = config.LEDCount / 2 + ((config.LEDCount / 2) - webData.length) * math.sin(6.28 * time.time() * 1000.0 / float(webData.delay))
+                    #logging.info("center " + str(center))
                     # set the values for the given width
                     for x in range(-1 * webData.length, webData.length):
-                        stripData[center + x] = webData.color1
+                        stripData[int(center + x)] = color1
 
                 # for now just set everything to color1
                 #for x in range(config.LEDCount):
@@ -180,9 +210,10 @@ class DrawThread(object):
                         #if(stripData[x] >= 0 and stripData[x] <= (255 << 16 | 255 << 8 | 255)):
                         if True:
                             #logging.info(str(stripData[x]))
+                            #logging.info(str(get24BitColorValueArray(stripData[x])))
                             #logging.info("SET PIXEL " + str(x) + "val " + str(int(stripData[x], 16)) + " " + str(stripData[x]))
                             # also clamps
-                            strip.setPixelColor(x, get24BitColorValue(stripData[x]))
+                            strip.setPixelColor(x, get24BitColorValueArray(stripData[x]))
                             #strip.setPixelColor(x, int(stripData[x], 16))
                     except OverflowError:
                         logging.error("Led Overflow error")

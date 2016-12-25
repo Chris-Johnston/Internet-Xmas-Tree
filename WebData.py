@@ -57,13 +57,23 @@ class WebData(object):
             file = open(self.config.DataPath + "/" + self.config.DataFile, "r")
             jsonData = json.load(file)
             # get json data
+            #logging.info(str(jsonData["color1"]))
             self.color1 = getColorFromString(jsonData["color1"])
+            #logging.info(str(self.color1))
             self.color2 = getColorFromString(jsonData["color2"])
             self.pattern = jsonData["pattern"]
-            self.isRandom1 = jsonData["isRandom1"]
-            self.isRandom2 = jsonData["isRandom2"]
-            self.length = jsonData["length"]
-            self.delay = jsonData["delay"]
+            #logging.info(jsonData["isRandom2"])
+            #logging.info(bool(jsonData["isRandom2"]))
+            self.isRandom1 = False
+            self.isRandom2 = False
+            if jsonData["isRandom1"] == "true":
+                self.isRandom1 = True
+            if jsonData["isRandom2"] == "true":
+                self.isRandom2 = True
+            #self.isRandom1 = bool(jsonData["isRandom1"])
+            #self.isRandom2 = bool(jsonData["isRandom2"])
+            self.length = int(jsonData["length"])
+            self.delay = int(jsonData["delay"])
             file.close()
         except Exception as e:
             logger.error("Error: " + str(e))

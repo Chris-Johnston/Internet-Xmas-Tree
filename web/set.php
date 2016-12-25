@@ -36,7 +36,7 @@
         "color1" => $color1,
         "color2" => $color2,
         "isRandom1" => $c1Rand,
-        "isRandom2" => $c1Rand,
+        "isRandom2" => $c2Rand,
         "pattern" => intval($pattern),
         "length" => intval($length),
         "delay" => intval($delay));

@@ -2,6 +2,9 @@
 import colorsys
 
 def rgbToTuple(r, g, b):
+    r = clampColor(r)
+    g = clampColor(g)
+    b = clampColor(b)
     return (r, g, b)
 
 def clampColor(val):
@@ -29,14 +32,14 @@ def getRComponent(value):
     return value >> 16
 
 def getGComponent(value):
-    return (value ^ (getR(value) << 16)) >> 8
+    return (value ^ (getRComponent(value) << 16)) >> 8
 
 def getBComponent(value):
-    return (value ^ (getG(value) << 8))
+    return (value ^ (value >> 8) << 8)
 
 # gets rgb tuple from hsv valus
 def hsv(hue, saturation, value):
-    return colorsys.hsv_to_rgb(hue, saturation, value)
+    return multiplyArray(colorsys.hsv_to_rgb(hue, saturation, value), 255)
 
 # scale the color by this amt, useful for sin
 def multiplyArray(value, scale):

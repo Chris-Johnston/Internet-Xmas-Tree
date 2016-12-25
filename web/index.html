@@ -27,6 +27,8 @@
                     <option value="4">Wipe Down</option>
                     <option value="5">Random Blinker</option>
                     <option value="6">Larson Scanner</option>
+		    <option value="7">Smooth Scroll</option>
+                    <option value="8">Pulse</option>
                     <!-- TODO Add more Patterns -->
                 </select>
                 <br />
@@ -44,7 +46,7 @@
                 <br />
 
                 Length:
-                <input name="length" type="number" min="1" max="1000" value="15" class="inputNumber"/>
+                <input name="len" type="number" min="1" max="1000" value="15" class="inputNumber"/>
                 Delay (ms):
                 <input name="delay" type="number" min="1" max="60000" value="100" class="inputNumber"/>
                 <br />
@@ -58,10 +60,17 @@
 
     <script type="text/javascript">
 	console.log("TEST");
+        function valCheck(str)
+{
+console.log("getting check " + str);
+console.log(document.forms[0].elements[str].checked);
+return document.forms[0].elements[str].checked;
+}
         function val(str)
         {
 
 		console.log("getting " + str);
+                console.log(document.forms[0].elements[str].value);
 		return document.forms[0].elements[str].value;
 //            return document.getElementById(str).value;
         }
@@ -79,7 +88,7 @@
 			console.log("GOT BACK");
 		}
             }
-            var request ="set.php?color1=" + val("color1") + "&color2=" + val("color2") + "&pattern=" + val("pattern") + "&random1=" + val("random1") + "&random2=" + val("random2") + "&length=" + val("length") + "&delay=" + val("delay");
+            var request ="set.php?color1=" + val("color1") + "&color2=" + val("color2") + "&pattern=" + val("pattern") + "&random1=" + valCheck("random1") + "&random2=" + valCheck("random2") + "&length=" + val("len") + "&delay=" + val("delay");
             console.log("NEW REQUEST: " + request);
             xmlHttp.open("GET", request, true);
             xmlHttp.send(null);
