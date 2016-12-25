@@ -126,13 +126,14 @@ class UpdateThread(object):
                         stripData[x] = c3
                 if webData.pattern == int(config.Patterns.get("pattern_scroll")):
                     # iterate through
+                    offset = int(time.time() * 1000 / float(webData.delay))
                     for x in range(config.LEDCount):
                         # default color 1
                         color = webData.color1
                         # offset by time, x pos divided by length mod 2
                         # time.time is in seconds not ms
                         # sets color 2
-                        if (time.time() / 1000.0 * float(webData.delay) + x / float(webData.length + 1)) % 2 == 1:
+                        if ((offset + x) / webData.length) % 2 == 1:
                             color = color2
                         # set color
                         stripData[x] = color
