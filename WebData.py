@@ -16,7 +16,7 @@ class FileChangedHandler(FileSystemEventHandler):
     def on_modified(self, event):
         logging.info(self.config.DataFile)
         logging.info(event.src_path)
-        if self.config.DataFile in event.src_path:
+        if( self.config.DataFile in event.src_path):
             self.outerInstance.fileModified()
 
 class WebData(object):
