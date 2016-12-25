@@ -3,6 +3,13 @@ body{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 } 
 
+#btnSubmit
+{
+    position: relative;
+    left: 65%;
+    width: 100px;
+}
+
 h1{
     font-size: 250%;
     margin-top: 0;
@@ -37,7 +44,7 @@ form > p{
 
 #instruct {
     color: red;
-    font-weight: bold;
+    font-size: 12pt;
 }
 
 #wrapper{
@@ -45,6 +52,42 @@ form > p{
     border: 5px solid red;
     border-radius: 20px;
     padding: 30px;
-    margin: 50px auto;
-    width: 500px;
+    margin: 10px 12%;
+    line-height: 24pt;
 }
+
+#callbackValue
+{
+    margin: 0 auto;
+    width: 50%;
+    border: 1px solid black;
+    background: #CCC;
+    font-family: Courier New;
+    font-size: 8pt;
+}
+
+@media only screen and (max-width: 650px)
+{
+    #instruct{
+        font-size: 12px;
+    }
+    #wrapper
+    {
+        margin: 10px 1%;
+    }
+    form{
+        width: auto;
+    }
+    h1{
+        font-size: 20pt;
+    }
+    #presetsWrapper
+    {
+        display: block;
+    }
+    #callbackValue
+    {
+        width: 90%;
+    }
+}
+

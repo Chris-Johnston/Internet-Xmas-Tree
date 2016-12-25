@@ -2,7 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Xmas Tree Color Picker</title>
+    <title>X-mas Tree Color Picker</title>
+    <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
@@ -13,16 +14,19 @@
         <div id="sub">
             <a href="https://github.com/Chris-Johnston/Internet-Xmas-Tree">github.com/Chris-Johnston/Internet-Xmas-Tree</a>
         </div>
-
-        <button id="presetOff" onclick="setPreset(this)" >Off</button>
-        <button id="presetXmas" onclick="setPreset(this)">Xmas</button>
-        <button id="presetSeahawks" onclick="setPreset(this)">Seahwaks</button>
-        <button id="presetBlinky" onclick="setPreset(this)">Blinking Lights</button>
-
         <!-- action="submit.php" -->
         <form id="lightForm" >
             <p>
-                <span id="instruct">Fill out the form and Submit.</span>
+                <span id="instruct">Enter your parameters or choose a preset and press Submit.</span>
+
+                <!-- preset buttons -->
+                <div id="presetsWrapper">
+                    <button id="presetOff" onclick="setPreset(this)">Off</button>
+                    <button id="presetXmas" onclick="setPreset(this)">Xmas</button>
+                    <button id="presetSeahawks" onclick="setPreset(this)">Seahwaks</button>
+                    <button id="presetBlinky" onclick="setPreset(this)">Blinking Lights</button>
+                </div>
+
                 <br />
                 Select a pattern:
                 <select name="pattern" form="lightForm" onchange="updateLabels()" id="selectPattern">
@@ -61,7 +65,7 @@
             </p>
         </form>
         <button id="btnSubmit">Submit</button>
-        <div id="callbackValue"></div>
+        <div id="callbackValue">Output:</div>
     </div>
 
     <script type="text/javascript">
