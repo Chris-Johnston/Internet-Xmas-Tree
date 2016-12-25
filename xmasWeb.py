@@ -97,9 +97,9 @@ class UpdateThread(object):
                     time.sleep(webData.delay / 1000.0)
                 if webData.pattern == int(config.Patterns.get("pattern_scrollsmooth")):
                     for x in range(config.LEDCount):
-                        c1 = multiply(webData.color1, math.sin( 6.28 * webData.length * x / float(config.LEDCount) +  time.time() / 1000.0 / float(webData.delay)))
-                        c2 = multiply(webData.color2, math.sin( 6.28 * webData.length * x / float(config.LEDCount) + 3.14 + time.time() / 1000.0 / float(webData.delay)))
-                        stripData[x] = add(c1, c2)
+                        c1 = multiplyArray(webData.color1, math.sin( 6.28 * webData.length * x / float(config.LEDCount) +  time.time() / 1000.0 / float(webData.delay)))
+                        c2 = multiplyArray(webData.color2, math.sin( 6.28 * webData.length * x / float(config.LEDCount) + 3.14 + time.time() / 1000.0 / float(webData.delay)))
+                        stripData[x] = addArray(c1, c2)
                 if webData.pattern == int(config.Patterns.get("pattern_scroll")):
                     # iterate through
                     for x in range(config.LEDCount):
