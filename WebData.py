@@ -1,5 +1,6 @@
 ﻿#!/usr/bin/python
 from GlobalConfiguration import GlobalConfiguration
+from ColorUtils import *
 import json
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -56,8 +57,8 @@ class WebData(object):
             file = open(self.config.DataPath + "/" + self.config.DataFile, "r")
             jsonData = json.load(file)
             # get json data
-            self.color1 = jsonData["color1"]
-            self.color2 = jsonData["color2"]
+            self.color1 = getColorFromString(jsonData["color1"])
+            self.color2 = getColorFromString(jsonData["color2"])
             self.pattern = jsonData["pattern"]
             self.isRandom1 = jsonData["isRandom1"]
             self.isRandom2 = jsonData["isRandom2"]

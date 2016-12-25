@@ -2,6 +2,7 @@
 
 # Configuration.py
 from GlobalConfiguration import GlobalConfiguration
+from ColorUtils import *
 from WebData import WebData
 import math
 #from DrawThread import DrawThread
@@ -47,7 +48,7 @@ config = GlobalConfiguration()
 config.load()
 
 #define the strip data
-stripData = ['000000' for c in range(config.LEDCount)]
+stripData = [(0,0,0) for c in range(config.LEDCount)]
 
 # Create the NeoPixel strip
 strip = Adafruit_NeoPixel(config.LEDCount, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, config.Brightness, strip_type=ws.WS2811_STRIP_GRB)
@@ -88,12 +89,17 @@ class UpdateThread(object):
                         stripData[x] = webData.color1
                     # wait
                     time.sleep(webData.delay / 1000.0)
-                    logging.info("BLINK CHANGE")
+                    #logging.info("BLINK CHANGE")
                     # set all color 2
                     for x in range(config.LEDCount):
                         stripData[x] = webData.color2
                     # wait
                     time.sleep(webData.delay / 1000.0)
+                if webData.pattern == int(config.Patterns.get("pattern_scrollsmooth")):
+                    for x in range(config.LEDCount):
+                        c1 = multiply(webData.color1, math.sin( 6.28 * webData.length * x / float(config.LEDCount) +  time.time() / 1000.0 / float(webData.delay)))
+                        c2 = multiply(webData.color2, math.sin( 6.28 * webData.length * x / float(config.LEDCount) + 3.14 + time.time() / 1000.0 / float(webData.delay)))
+                        stripData[x] = add(c1, c2)
                 if webData.pattern == int(config.Patterns.get("pattern_scroll")):
                     # iterate through
                     for x in range(config.LEDCount):
@@ -175,7 +181,9 @@ class DrawThread(object):
                         if True:
                             #logging.info(str(stripData[x]))
                             #logging.info("SET PIXEL " + str(x) + "val " + str(int(stripData[x], 16)) + " " + str(stripData[x]))
-                            strip.setPixelColor(x, int(stripData[x], 16))
+                            # also clamps
+                            strip.setPixelColor(x, get24BitColorValue(stripData[x]))
+                            #strip.setPixelColor(x, int(stripData[x], 16))
                     except OverflowError:
                         logging.error("Led Overflow error")
                 strip.show()
