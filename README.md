@@ -1,7 +1,7 @@
 # Internet-Xmas-Tree
 Internet-Controlled Christmas tree lights using PHP and Python.
 
-**Farnsworth:** What-mas? 
+**Farnsworth:** What-mas?
 
 **Fry:** Christmas. You know? X-M-A-S.
 
@@ -11,11 +11,11 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 
 [Demo reel of various patterns.](https://www.youtube.com/watch?v=5M3lig-fI4s)
 
-![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/DSC02054.JPG)
+<img src="images/redgreen.jpg" alt="Picture of tree in use with Xmas colors" />
 
-![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/20151220-DSC02061crop.jpg)
+<img src="images/bluegreen.jpg" alt="Picture of tree in use with Seahawks colors" />
 
-![Picture in use](https://dl.dropboxusercontent.com/u/59755513/random%20pics/raspberry%20pi%20tree.jpg)
+<img src="images/sketchywiring.jpg" alt="Picture of sketchy looking wiring setup from first version" />
 
 [Old example of Web Interface](https://youtu.be/gIETAGKKV80).
 
