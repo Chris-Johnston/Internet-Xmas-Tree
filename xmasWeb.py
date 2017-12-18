@@ -219,6 +219,7 @@ class DrawThread(object):
                     except OverflowError:
                         logging.error("Led Overflow error")
                 strip.show()
+                time.sleep(0.001)
             except Exception as e:
                 logging.error("err1" + str(e))
 
@@ -238,7 +239,7 @@ if __name__ == "__main__":
             # webData is running when file changes
             # update thread is running
             # draw thread is running
-            time.sleep(1)
+            time.sleep(10)
     except (KeyboardInterrupt, SystemExit):
         logger.debug("End of program")
         webData.close()
