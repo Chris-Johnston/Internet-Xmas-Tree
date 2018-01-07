@@ -1,5 +1,5 @@
 # Internet-Xmas-Tree
-Internet-Controlled Christmas tree lights using PHP and Python.
+Internet-Controlled Christmas tree lights using Python.
 
 **Farnsworth:** What-mas?
 
@@ -22,6 +22,8 @@ Internet-Controlled Christmas tree lights using PHP and Python.
 ![Screenshot of Webpage](http://puu.sh/m7AJj/7616c63f76.png "Screenshot of Webpage")
 
 # Install and Usage
+
+**This is out of date. I'm no longer using Apache and PHP, but instead Flask (to host the web server). I will update this at a later date.**
 
 ## Dependencies
 
