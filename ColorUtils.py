@@ -14,14 +14,14 @@ def getRGBFrom24Bit(value24Bit):
     return rgbToTuple(getRComponent(value24Bit), getGComponent(value24Bit), getBComponent(value24Bit))
 
 def getColorFromString(str):
-    return getRGBFrom24Bit(int(str, 16))
+    return getRGBFrom24Bit(int(str,16))
 
 # get the 24 bit color value based on 3 byte values for rgb
 def get24BitColorValueRGB(r, g, b):
     r = clampColor(r)
     g = clampColor(g)
     b = clampColor(b)
-    return (int(r) << 16) | (int(g) << 8) | int(b)
+    return (int(r) << 16) | (int(g) << 8) | int( b)
 
 def get24BitColorValueArray(tupleRGB):
     return get24BitColorValueRGB(tupleRGB[0], tupleRGB[1], tupleRGB[2])

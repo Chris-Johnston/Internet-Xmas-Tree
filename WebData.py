@@ -8,15 +8,20 @@ from watchdog.events import FileSystemEventHandler
 import logging
 logger = logging.getLogger(__name__)
 
+# updates the contents of the webdata object when the file changes
 class FileChangedHandler(FileSystemEventHandler):
     config = None
+
     def __init__(self, outer):
         logging.info("HANDLER INIT")
         self.outerInstance = outer
         self.config = outer.config
+
     def on_modified(self, event):
+        # log debug info, path to the file
         logging.info(self.config.DataFile)
         logging.info(event.src_path)
+
         if( self.config.DataFile in event.src_path):
             self.outerInstance.fileModified()
 
@@ -53,27 +58,32 @@ class WebData(object):
     def fileModified(self):
         try:
             logging.info("READING WEB DATA")
+            print('reading web data')
             # open data file
             file = open(self.config.DataPath + "/" + self.config.DataFile, "r")
+            print(file)
             jsonData = json.load(file)
-            # get json data
-            #logging.info(str(jsonData["color1"]))
-            self.color1 = getColorFromString(jsonData["color1"])
-            #logging.info(str(self.color1))
-            self.color2 = getColorFromString(jsonData["color2"])
+            print(jsonData)
+            # get json data from the file
+            print('aaa')
+            #self.color1 = getColorFromString(jsonData["color1"])
+            #self.color2 = getColorFromString(jsonData["color2"])
+            self.color1 = jsonData['color1']
+            self.color2 = jsonData['color2']
+            print('bbb')
             self.pattern = jsonData["pattern"]
-            #logging.info(jsonData["isRandom2"])
-            #logging.info(bool(jsonData["isRandom2"]))
-            self.isRandom1 = False
-            self.isRandom2 = False
-            if jsonData["isRandom1"] == "true":
-                self.isRandom1 = True
-            if jsonData["isRandom2"] == "true":
-                self.isRandom2 = True
-            #self.isRandom1 = bool(jsonData["isRandom1"])
-            #self.isRandom2 = bool(jsonData["isRandom2"])
-            self.length = int(jsonData["length"])
-            self.delay = int(jsonData["delay"])
+            #self.isRandom1 = jsonData['isRandom1']
+            #self.isRandom2 = jsonData['isRandom2']
+            print('ccc')
+            #if jsonData["isRandom1"]:
+            #    self.isRandom1 = True
+            #if jsonData["isRandom2"]:
+            #    self.isRandom2 = True
+            print('ddd')
+            self.length = jsonData["length"]
+            self.delay = jsonData["delay"]
+            print('eee')
             file.close()
         except Exception as e:
+            print('exception in webdata' + str(e))
             logger.error("Error: " + str(e))

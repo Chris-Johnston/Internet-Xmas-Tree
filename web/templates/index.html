@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <title>X-mas Tree Color Picker</title>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
     <div id="wrapper">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.js"></script>
-        <script src="js/presets.js" type="text/javascript" ></script>
+        <script src="{{ url_for('static', filename='js/presets.js') }}" type="text/javascript" ></script>
         <h1>X-mas Tree Color Picker</h1>
         <div id="sub">
             <a href="https://github.com/Chris-Johnston/Internet-Xmas-Tree">github.com/Chris-Johnston/Internet-Xmas-Tree</a>
@@ -101,7 +102,7 @@ return document.forms[0].elements[str].checked;
 			console.log("GOT BACK");
 		}
             }
-            var request ="set.php?color1=" + val("color1") + "&color2=" + val("color2") + "&pattern=" + val("pattern") + "&random1=" + valCheck("random1") + "&random2=" + valCheck("random2") + "&length=" + val("len") + "&delay=" + val("delay");
+            var request ="/set?color1=" + val("color1") + "&color2=" + val("color2") + "&pattern=" + val("pattern") + "&random1=" + valCheck("random1") + "&random2=" + valCheck("random2") + "&length=" + val("len") + "&delay=" + val("delay");
             console.log("NEW REQUEST: " + request);
             xmlHttp.open("GET", request, true);
             xmlHttp.send(null);

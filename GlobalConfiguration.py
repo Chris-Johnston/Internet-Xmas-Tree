@@ -2,7 +2,6 @@
 
 import logging
 logger = logging.getLogger(__name__)
-#todo logging
 
 class GlobalConfiguration(object):
     Patterns = {}
