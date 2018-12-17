@@ -52,7 +52,7 @@ config.load()
 stripData = [(0,0,0) for c in range(config.LEDCount)]
 
 # Create the NeoPixel strip
-strip = NeoPixel(board.D18, config.LEDCount, bpp=3, auto_write=False, brightness=0.5)
+strip = NeoPixel(board.D18, config.LEDCount, bpp=3, auto_write=False, brightness=0.1)
 
 for i in range(len(strip)):
     strip[i] = (255, 0, 0)
@@ -127,7 +127,7 @@ def update():
                 # offset by time, x pos divided by length mod 2
                 # time.time is in seconds not ms
                 # sets color 2
-                if ((offset + x) / webData.length) % 2 == 1:
+                if ((offset + x) // webData.length) % 2 == 1:
                     color = color2
                 # set color
                 stripData[x] = color

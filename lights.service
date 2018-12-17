@@ -1,0 +1,13 @@
+[Unit]
+Description=Xmas Tree Lights Service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/Internet-Xmas-Tree
+ExecStart=/usr/bin/python3 xmasWeb.py
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
