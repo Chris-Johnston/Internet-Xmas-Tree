@@ -52,7 +52,12 @@ config.load()
 stripData = [(0,0,0) for c in range(config.LEDCount)]
 
 # Create the NeoPixel strip
-strip = NeoPixel(board.D18, config.LEDCount, bpp=3, brightness=0.2)
+strip = NeoPixel(board.D18, config.LEDCount, bpp=3, auto_write=False, brightness=0.5)
+
+for i in range(len(strip)):
+    strip[i] = (255, 0, 0)
+
+strip.show()
 
 # define web data
 webData = WebData(config)
@@ -188,15 +193,13 @@ def update():
 def draw():
     try:
         for x in range(config.LEDCount):
-            strip.setPixelColor(x, get24BitColorValueArray(stripData[x]))
+            # strip.setPixelColor(x, get24BitColorValueArray(stripData[x]))
+            strip[x] = get24BitColorValueArray(stripData[x])
         strip.show()
     except Exception as e:
         logging.error("Error when drawing " + str(e))
 
 if __name__ == "__main__":
-    # Intialize the library (must be called once before other functions).
-    strip.begin()
-
     # loop
     try:
         while True:
@@ -206,11 +209,9 @@ if __name__ == "__main__":
             # draw the values
             draw()
 
-            time.sleep(0.001)
+            time.sleep(0.01)
 
             # update the values of the strip
-
-
     except (KeyboardInterrupt, SystemExit):
         logger.debug("End of program")
         webData.close()
