@@ -40,6 +40,9 @@ global webData
 global updateThread
 global drawThread
 
+import board
+
+
 # start stuff
 # load the configuration data
 config = GlobalConfiguration()
@@ -49,7 +52,7 @@ config.load()
 stripData = [(0,0,0) for c in range(config.LEDCount)]
 
 # Create the NeoPixel strip
-strip = NeoPixel(LED_PIN, config.LEDCount, bpp=3, brightness=0.2)
+strip = NeoPixel(board.D18, config.LEDCount, bpp=3, brightness=0.2)
 strip.begin()
 
 # define web data
