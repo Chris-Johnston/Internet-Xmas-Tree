@@ -1,16 +1,14 @@
-﻿#!/usr/bin/env python2.7
+﻿#!/usr/bin/env python3.6
 
 # Configuration.py
 from GlobalConfiguration import GlobalConfiguration
 from ColorUtils import *
 from WebData import WebData
 import math
-#from DrawThread import DrawThread
-#from UpdateThread import UpdateThread
 
 # import the rpi_ws281x library
 # make sure this is set up first
-from neopixel import * 
+from neopixel import *
 
 import logging
 # set up logging (I really wanted to call it yule.log)
@@ -26,10 +24,10 @@ import threading
 
 # These values shouldn't have to be changed when already working
 # moved to configuration file
-LED_PIN     = 18 # GPIO pin connected to the pixels
-LED_FREQ_HZ    = 800000 # LED signal frequency in hz
-LED_DMA        = 5 # DMA channel for generating signal
-LED_INVERT    = False
+LED_PIN = 18  # GPIO pin connected to the pixels
+LED_FREQ_HZ = 800000  # LED signal frequency in hz
+LED_DMA = 5  # DMA channel for generating signal
+LED_INVERT = False
 
 # fast linear sin approx
 def fastApprox(val):

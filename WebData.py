@@ -47,7 +47,7 @@ class WebData(object):
         # handlers for changes
         handler = FileChangedHandler(self)
         observer = Observer()
-        print self.config.DataFile
+        print(self.config.DataFile)
         observer.schedule(handler, path=self.config.DataPath, recursive=False)
         observer.start()
 

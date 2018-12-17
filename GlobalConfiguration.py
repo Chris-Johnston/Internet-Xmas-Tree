@@ -3,6 +3,7 @@
 import logging
 logger = logging.getLogger(__name__)
 
+
 class GlobalConfiguration(object):
     Patterns = {}
     LEDCount = 600
