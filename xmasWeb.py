@@ -49,9 +49,7 @@ config.load()
 stripData = [(0,0,0) for c in range(config.LEDCount)]
 
 # Create the NeoPixel strip
-strip = Adafruit_NeoPixel(
-    config.LEDCount, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT,
-    config.Brightness, strip_type=ws.WS2811_STRIP_GRB)
+strip = NeoPixel(LED_PIN, config.LEDCount, bpp=3, brightness=0.2)
 strip.begin()
 
 # define web data
