@@ -1,4 +1,11 @@
-# color utilities
+"""
+Color Utility
+
+Provides some utility functions for manipulating (r, g, b) colors.
+
+Requires the pip package colorsys
+"""
+
 import colorsys
 
 def rgbToTuple(r, g, b):
