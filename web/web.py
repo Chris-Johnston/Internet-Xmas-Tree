@@ -14,12 +14,14 @@ regex_color = '^#[A-Fa-f0-9]{6}$'
 
 APP = Flask(__name__,static_url_path='/static',
             template_folder='templates')
-# allow cross origin requestss
+# allow cross origin requests, we need this because of jscolor
 CORS(APP)
+
 
 @APP.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
 
 # writes the data to the output file
 def write(data):
@@ -27,6 +29,7 @@ def write(data):
     with open(FILE_PATH, 'w') as f:
         f.write(d)
         f.close()
+
 
 @APP.route('/state', methods=['GET'])
 def get_state():
@@ -81,11 +84,8 @@ def form_state():
     # get the state from request args
     # these can be part of the query string, but we don't really care if it's one or the other
     try:
-        # TODO I don't have wifi right now
-        data['color1'] = '#FF0000'
-        data['color2'] = '#00f00f'
-        # data['color1'] = webcolors.hex_to_rgb('#' + request.args['color1'])
-        # data['color2'] = webcolors.hex_to_rgb('#' + request.args['color2'])
+        data['color1'] = webcolors.hex_to_rgb('#' + request.args['color1'])
+        data['color2'] = webcolors.hex_to_rgb('#' + request.args['color2'])
         data['random1'] = bool(request.args['random1'])
         data['random2'] = bool(request.args['random2'])
         data['pattern'] = int(request.args['pattern'])
@@ -104,14 +104,16 @@ def post_state():
     """
     POST /state
 
+    Expects the following json from the request body
+
     {
-	"color1": "#00f00f",
-	"color2": "#00f00f",
-	"random2": true,
-	"random1": true,
-	"length": 1,
-	"delay": 1,
-	"pattern": 1
+    "color1": "#00f00f",
+    "color2": "#00f00f",
+    "random2": true,
+    "random1": true,
+    "length": 1,
+    "delay": 1,
+    "pattern": 1
     }
 
     Updates the current state from the json provided in the request body.
@@ -128,5 +130,10 @@ def post_state():
     write(data)
     return json.dumps(data), 200
 
+
 if __name__ == '__main__':
-    APP.run(debug=True, host='0.0.0.0')
+    # host the server on port 80
+    # while we shouldn't require using the builtin server in production environment
+    # I think that this is just fine for the use case that I require
+    # we can just turn off debug mode in production
+    APP.run(debug=True, host='0.0.0.0', port=80)
