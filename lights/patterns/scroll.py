@@ -25,7 +25,10 @@ class Scroll(Pattern):
             # offset by time, x pos divided by length mod 2
             # time.time is in seconds not ms
             # sets color 2
-            if ((offset + x) // state.length) % 2 == 1:
+            if ((offset + x) // state.length) % 2 == 0:
+                print('2')
                 color = state.color2
+            else:
+                print('1')
             # set color
             strip[x] = color
