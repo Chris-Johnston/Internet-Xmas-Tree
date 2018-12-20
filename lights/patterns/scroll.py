@@ -17,8 +17,6 @@ class Scroll(Pattern):
 
     @classmethod
     def update(self, strip, state):
-        print('is update actually being called')
-        raise Exception("this is really odd... is it even hitting this method?")
         # iterate through
         offset = int(time.time() * 1000 / float(state.delay))
         for x in range(len(strip)):
@@ -28,9 +26,6 @@ class Scroll(Pattern):
             # time.time is in seconds not ms
             # sets color 2
             if ((offset + x) // state.length) % 2 == 0:
-                print('2')
                 color = state.color2
-            else:
-                print('1')
             # set color
             strip[x] = color
