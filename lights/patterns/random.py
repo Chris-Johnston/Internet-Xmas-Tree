@@ -22,4 +22,4 @@ class Scroll(Pattern):
         for x in range(state.length):
             # pick a random index to set to color1
             index = random.randint(0, len(strip) - 1)
-            strip[index] = state.color2
+            strip[index] = state.color1
