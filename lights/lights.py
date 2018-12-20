@@ -40,7 +40,8 @@ def update(strip, state, pattern_handlers):
     if state.pattern in pattern_handlers:
         pattern_handlers[state.pattern].update(strip, state)
     else:
-        print('Could not find pattern', state.pattern)
+        # if not found, use solid color, which should always be at 0
+        pattern_handlers[0].update(strip, state)
 
 if __name__ == '__main__':
     # first arg is the path (may be relative) to the config.ini
