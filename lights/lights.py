@@ -26,6 +26,7 @@ patterns = [
     'patterns.larson',
     'patterns.wipeup',
     'patterns.wipedown',
+    'patterns.colorbeams',
     ]
 
 # todo, need to go back and re-add support for getting random colors
