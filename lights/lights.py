@@ -22,6 +22,8 @@ patterns = [
     'patterns.pulse',
     'patterns.scroll',
     'patterns.scrollsmooth',
+    'patterns.random',
+    'patterns.larson'
     ]
 
 # todo, need to go back and re-add support for getting random colors
