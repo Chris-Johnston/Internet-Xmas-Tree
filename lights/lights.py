@@ -39,12 +39,9 @@ def update(strip, state, pattern_handlers):
         pattern_handlers[state.pattern].update(strip, state)
 
 if __name__ == '__main__':
-    # first arg is the path to the web data.json
-    # maybe I should be using env vars for this instead
-    # data_file = sys.argv[1]
-    # config_file = sys.argv[2]
-
-    conf = config.Config('configuration.ini')
+    # first arg is the path (may be relative) to the config.ini
+    config_file = sys.argv[1]
+    conf = config.Config(config_file)
     conf.load()
     
     state = State(conf.data_file)
