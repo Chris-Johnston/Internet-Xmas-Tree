@@ -24,7 +24,8 @@ patterns = [
     'patterns.scrollsmooth',
     'patterns.random',
     'patterns.larson',
-    'patterns.wipeup'
+    'patterns.wipeup',
+    'patterns.wipedown',
     ]
 
 # todo, need to go back and re-add support for getting random colors
