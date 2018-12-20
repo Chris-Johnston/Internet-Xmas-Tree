@@ -5,7 +5,6 @@ Only displays color 1
 
 """
 
-# import neopixel
 from .pattern import Pattern
 
 class Solid(Pattern):

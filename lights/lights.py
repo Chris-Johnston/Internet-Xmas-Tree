@@ -15,10 +15,16 @@ from patterns.pattern import Pattern
 from config import Config
 from state import State
 
-# todo dynamically import the following functions, which are patterns
-# etc
-# import these with importlib.import_module(name)
-patterns = ['patterns.blink', 'patterns.solid']
+patterns = [
+    'patterns.blink',
+    'patterns.solid',
+    'patterns.traditional',
+    'patterns.pulse',
+    'patterns.scroll',
+    'patterns.scrollsmooth',
+    ]
+
+# todo, need to go back and re-add support for getting random colors
 
 def update(strip, state, pattern_handlers):
     """

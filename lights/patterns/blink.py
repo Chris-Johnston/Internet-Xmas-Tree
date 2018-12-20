@@ -3,7 +3,6 @@ Blink Pattern
 
 """
 
-# import neopixel
 from .pattern import Pattern
 
 class Blink(Pattern):
