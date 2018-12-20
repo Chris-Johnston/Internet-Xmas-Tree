@@ -17,7 +17,7 @@ class Solid(Pattern):
         pass
     
     @classmethod
-    def get_id():
+    def get_id(self):
         """
         Gets the ID of this pattern.
         This is set by the front end, and saved in the data.json. If this ID matches, then this update method will be called.
@@ -25,7 +25,7 @@ class Solid(Pattern):
         return 0
 
     @classmethod
-    def update(strip, state):
+    def update(self, strip, state):
         """
         Updates the LED strip
 

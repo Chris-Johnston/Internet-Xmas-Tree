@@ -11,11 +11,11 @@ class Scroll(Pattern):
         super(Pattern, self).__init__()
 
     @classmethod
-    def get_id():
+    def get_id(self):
         return 2
 
     @classmethod
-    def update(strip, state):
+    def update(self, strip, state):
         # set the background to color2
         strip.fill(state.color2)
 

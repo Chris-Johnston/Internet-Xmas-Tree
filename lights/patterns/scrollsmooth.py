@@ -19,11 +19,11 @@ class ScrollSmooth(Pattern):
         super(Pattern, self).__init__()
 
     @classmethod
-    def get_id():
+    def get_id(self):
         return 7
 
     @classmethod
-    def update(strip, state):
+    def update(self, strip, state):
         # logging.info("Smooth")
         for x in range(len(strip)):
             c1 = [c * (x / float(state.length + 1) + float(time.time()) * 1000.0 / float(state.delay)) for c in state.color1]

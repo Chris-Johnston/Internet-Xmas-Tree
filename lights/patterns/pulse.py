@@ -12,12 +12,12 @@ class Pulse(Pattern):
         super(Pattern, self).__init__()
 
     @classmethod
-    def get_id():
+    def get_id(self):
         return 8
 
     @classmethod
-    def update(strip, state):
-        amp = math.sin(time.time() * 1000.0 / float(webData.delay))
+    def update(self, strip, state):
+        amp = math.sin(time.time() * 1000.0 / float(state.delay))
         # set the color based on amplitude being negative or pos
         color = state.color1 if amp > 0 else state.color2
         # set the color based on the amplitude

@@ -12,11 +12,11 @@ class Scroll(Pattern):
         super(Pattern, self).__init__()
 
     @classmethod
-    def get_id():
+    def get_id(self):
         return 2
 
     @classmethod
-    def update(strip, state):
+    def update(self, strip, state):
         # iterate through
         offset = int(time.time() * 1000 / float(state.delay))
         for x in range(len(strip)):
