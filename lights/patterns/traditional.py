@@ -41,5 +41,6 @@ class Traditional(Pattern):
     @classmethod
     def update(self, strip, state):
         # set all of the strip colors to be one of the preset colors
-        for index in range(len(strip)):
+        strip.fill((0, 0, 0))
+        for index in range(0, len(strip), 2):
             strip[index] = self.colors[index % len(self.colors)]
