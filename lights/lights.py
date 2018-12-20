@@ -41,7 +41,7 @@ def update(strip, state, pattern_handlers):
 if __name__ == '__main__':
     # first arg is the path (may be relative) to the config.ini
     config_file = sys.argv[1]
-    conf = config.Config(config_file)
+    conf = Config(config_file)
     conf.load()
     
     state = State(conf.data_file)
@@ -59,7 +59,7 @@ if __name__ == '__main__':
                 pattern_handlers[instance.get_id()] = instance
 
     # initialize the led strip
-    strip = neopixel.NeoPixel(board.D18, config.LEDCount, bpp=3, auto_write=False, brightness=config.brightness)
+    strip = neopixel.NeoPixel(board.D18, conf.LEDCount, bpp=3, auto_write=False, brightness=conf.brightness)
 
     state = None
 
