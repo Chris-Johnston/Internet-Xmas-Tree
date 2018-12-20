@@ -59,7 +59,7 @@ if __name__ == '__main__':
                 pattern_handlers[instance.get_id()] = instance
 
     # initialize the led strip
-    strip = neopixel.NeoPixel(board.D18, int(conf.count), bpp=3, auto_write=False, brightness=conf.brightness)
+    strip = neopixel.NeoPixel(board.D18, int(conf.count), bpp=3, auto_write=False, brightness=conf.brightness, pixel_order=neopixel.GRB)
 
     # blink the strip just to show that it is working
     for x in [(255, 0, 0), (0, 255, 0), (0, 0, 255)]:
