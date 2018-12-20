@@ -30,8 +30,8 @@ class Blink(Pattern):
 
         """
         if self.color_toggle:
-            strip.fill(list(state.color1))
+            strip.fill(tuple(state.color1))
         else:
-            strip.fill(list(state.color2))
+            strip.fill(tuple(state.color2))
         
         self.color_toggle = not self.color_toggle
