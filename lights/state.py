@@ -17,9 +17,9 @@ class State(object):
     last_updated_time = 0
     # the path of the file to read the state from
     file_path = "unset"
-    # hex color for 1 and 2, must start with #
-    color1 = "#FF0000"
-    color2 = "#000000"
+    # colors 1 and 2, that must be tuples or lists w/ max value 255
+    color1 = (255, 0, 0)
+    color2 = (0, 0, 0)
     # if color1/2 are random
     random1 = False
     random2 = False
