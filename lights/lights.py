@@ -60,9 +60,7 @@ if __name__ == '__main__':
 
     # initialize the led strip
     strip = neopixel.NeoPixel(board.D18, int(conf.count), bpp=3, auto_write=False, brightness=conf.brightness)
-
-    state = None
-
+    state = State(conf.data_file)
     try:
         while True:
             # check if data file updated, read from it if it has
