@@ -11,8 +11,8 @@ class ColorBeams(Pattern):
 
     @staticmethod
     def getHue(hue):
-    hsv = colorsys.hsv_to_rgb(hue, 1, 1)
-    return int(hsv[0] * 255), int(hsv[1] * 255), int(hsv[2] * 255)
+        hsv = colorsys.hsv_to_rgb(hue, 1, 1)
+        return int(hsv[0] * 255), int(hsv[1] * 255), int(hsv[2] * 255)
 
     @staticmethod
     def highlight(strip, i, hue = 0.5):
