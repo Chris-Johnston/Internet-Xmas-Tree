@@ -45,6 +45,9 @@ class Blink(Pattern):
         else:
             strip.fill(state.color2)
         
-        if Blink.__get_time() > (state.delay + self.last_blink_time):
+        x = Blink.__get_time()
+        y = state.delay + self.last_blink_time
+        if x > y:
+            print(x, y)
             self.color_toggle = not self.color_toggle
             self.__set_time()
