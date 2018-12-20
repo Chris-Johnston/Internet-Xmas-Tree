@@ -24,7 +24,7 @@ class Blink(Pattern):
 
     @classmethod
     def __set_time(self):
-        last_blink_time = Blink.__get_time()
+        self.last_blink_time = Blink.__get_time()
 
     @classmethod
     def get_id(self):
@@ -44,10 +44,6 @@ class Blink(Pattern):
             strip.fill(state.color1)
         else:
             strip.fill(state.color2)
-        
-        x = Blink.__get_time()
-        y = state.delay + self.last_blink_time
-        if x > y:
-            print(x, y)
+        if Blink.__get_time() > state.delay + self.last_blink_time:
             self.color_toggle = not self.color_toggle
             self.__set_time()
