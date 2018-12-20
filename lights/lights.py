@@ -59,7 +59,7 @@ if __name__ == '__main__':
                 pattern_handlers[instance.get_id()] = instance
 
     # initialize the led strip
-    strip = neopixel.NeoPixel(board.D18, conf.count, bpp=3, auto_write=False, brightness=conf.brightness)
+    strip = neopixel.NeoPixel(board.D18, int(conf.count), bpp=3, auto_write=False, brightness=conf.brightness)
 
     state = None
 
