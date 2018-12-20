@@ -78,10 +78,7 @@ if __name__ == '__main__':
             # write the data to the led strip
             strip.show()
             # don't delay at all because the writing process is already slow enough
-    except (KeyboardInterrupt, SystemExit) as e:
-        # todo proper exception handling
-        print(e)
+    except (KeyboardInterrupt, SystemExit):
         pass
     except Exception as e:
-        print(e)
-        pass
+        raise e
