@@ -12,7 +12,7 @@ class Scroll(Pattern):
 
     @classmethod
     def get_id(self):
-        return 2
+        return 5
 
     @classmethod
     def update(self, strip, state):
