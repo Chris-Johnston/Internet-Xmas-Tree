@@ -36,9 +36,7 @@ def update(strip, state, pattern_handlers):
     """
     # run the update method for the pattern handler with the matching pattern id
     if state.pattern in pattern_handlers:
-        handler = pattern_handlers[state.pattern]
-        print(handler)
-        handler.update(strip, state)
+        pattern_handlers[state.pattern].update(strip, state)
     else:
         print('Could not find pattern', state.pattern)
 

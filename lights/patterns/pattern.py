@@ -12,12 +12,11 @@ class Pattern(metaclass=ABCMeta):
         """
         Gets the pattern associated with this ID
         """
-        pass
-
+        raise NotImplementedError()
 
     @abstractmethod
     def update(self, strip, state):
         """
         Updates the strip with the given state
         """
-        pass
+        raise NotImplementedError()
