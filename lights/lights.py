@@ -37,6 +37,8 @@ def update(strip, state, pattern_handlers):
     # run the update method for the pattern handler with the matching pattern id
     if state.pattern in pattern_handlers:
         pattern_handlers[state.pattern].update(strip, state)
+    else:
+        print('Could not find pattern', state.pattern)
 
 if __name__ == '__main__':
     # first arg is the path (may be relative) to the config.ini
