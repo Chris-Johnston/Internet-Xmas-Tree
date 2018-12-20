@@ -6,6 +6,7 @@ Color beams pattern
 from .pattern import Pattern
 
 import colorsys
+import time
 
 class ColorBeams(Pattern):
 
