@@ -4,6 +4,7 @@ Blink Pattern
 """
 
 from .pattern import Pattern
+import time
 
 class Blink(Pattern):
     """
@@ -11,9 +12,17 @@ class Blink(Pattern):
 
     """
     color_toggle = False
+    last_blink_time = 0
 
     def __init__(self):
         super(Pattern, self).__init__()
+        self.__set_time()
+
+    def __get_time(self):
+        return time.time() * 1000
+
+    def __set_time(self):
+        last_blink_time = self.__get_time()
 
     @classmethod
     def get_id(self):
@@ -34,4 +43,6 @@ class Blink(Pattern):
         else:
             strip.fill(state.color2)
         
-        self.color_toggle = not self.color_toggle
+        if self.__get_time() > (state.delay + self.last_blink_time):
+            self.color_toggle = not self.color_toggle
+            self.__set_time()
