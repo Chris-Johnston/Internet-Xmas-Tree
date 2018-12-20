@@ -20,7 +20,7 @@ class ColorBeams(Pattern):
         i = i % len(strip)
         # set the color of this pixel
         strip[i] = ColorBeams.getHue(hue)
-        for x in range(20):
+        for x in range(15):
             index = (i - x) % len(strip)
             decay = pow(0.7, x)
             # strip[index] = (int(strip[index][0] * decay), int(strip[index][1] * decay), int(strip[index][2] * decay))
