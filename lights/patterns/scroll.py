@@ -18,6 +18,7 @@ class Scroll(Pattern):
     @classmethod
     def update(self, strip, state):
         print('is update actually being called')
+        raise Exception("this is really odd... is it even hitting this method?")
         # iterate through
         offset = int(time.time() * 1000 / float(state.delay))
         for x in range(len(strip)):
