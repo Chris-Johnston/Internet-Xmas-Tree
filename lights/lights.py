@@ -60,6 +60,14 @@ if __name__ == '__main__':
 
     # initialize the led strip
     strip = neopixel.NeoPixel(board.D18, int(conf.count), bpp=3, auto_write=False, brightness=conf.brightness)
+
+    # blink the strip just to show that it is working
+    for x in [(255, 0, 0), (0, 255, 0), (0, 0, 255)]:
+        strip.fill(x)
+        strip.show()
+        strip.fill((0, 0, 0))
+        strip.show()
+
     state = State(conf.data_file)
     try:
         while True:
