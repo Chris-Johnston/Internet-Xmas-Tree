@@ -59,26 +59,25 @@ if __name__ == '__main__':
                 pattern_handlers[instance.get_id()] = instance
 
     # initialize the led strip
-    strip = neopixel.NeoPixel(board.D18, int(conf.count), bpp=3, auto_write=False, brightness=conf.brightness, pixel_order=neopixel.GRB)
-
-    # blink the strip just to show that it is working
-    for x in [(255, 0, 0), (0, 255, 0), (0, 0, 255)]:
-        strip.fill(x)
-        strip.show()
-        strip.fill((0, 0, 0))
-        strip.show()
-
-    state = State(conf.data_file)
-    try:
-        while True:
-            # check if data file updated, read from it if it has
-            state.check_update()
-            # update the state of the led strip
-            update(strip, state, pattern_handlers)
-            # write the data to the led strip
+    with neopixel.NeoPixel(board.D18, int(conf.count), bpp=3, auto_write=False, brightness=conf.brightness, pixel_order=neopixel.GRB) as strip:
+        # blink the strip just to show that it is working
+        for x in [(255, 0, 0), (0, 255, 0), (0, 0, 255)]:
+            strip.fill(x)
             strip.show()
-            # don't delay at all because the writing process is already slow enough
-    except (KeyboardInterrupt, SystemExit):
-        pass
-    except Exception as e:
-        raise e
+            strip.fill((0, 0, 0))
+            strip.show()
+
+        state = State(conf.data_file)
+        try:
+            while True:
+                # check if data file updated, read from it if it has
+                state.check_update()
+                # update the state of the led strip
+                update(strip, state, pattern_handlers)
+                # write the data to the led strip
+                strip.show()
+                # don't delay at all because the writing process is already slow enough
+        except (KeyboardInterrupt, SystemExit):
+            pass
+        except Exception as e:
+            raise e
