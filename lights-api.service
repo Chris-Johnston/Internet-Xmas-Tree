@@ -4,7 +4,7 @@ Description=Xmas Tree Lights API
 [Service]
 Type=simple
 WorkingDirectory=/home/pi/Internet-Xmas-Tree/web
-ExecStart=/usr/bin/python3 api.py
+ExecStart=/usr/bin/python3 web.py
 Restart=on-failure
 StandardOutput=syslog
 StandardError=syslog
