@@ -16,6 +16,8 @@
             <a href="https://github.com/Chris-Johnston/Internet-Xmas-Tree">github.com/Chris-Johnston/Internet-Xmas-Tree</a>
         </div>
 
+        <img id="tree-image" src="/image" />
+
         <!-- preset buttons -->
         <div id="presetsWrapper">
             <button id="presetOff" onclick="setPreset(this)">Off</button>
@@ -28,9 +30,6 @@
         <form id="lightForm" >
             <p>
                 <span id="instruct">Enter your parameters or choose a preset and press Submit.</span>
-
-                
-
                 <br />
                 Select a pattern:
                 <select name="pattern" form="lightForm" onchange="updateLabels()" id="selectPattern">
@@ -41,8 +40,10 @@
                     <option value="4">Wipe Down</option>
                     <option value="5">Random Blinker</option>
                     <option value="6">Larson Scanner</option>
-		    <option value="7">Smooth Scroll</option>
+		            <option value="7">Smooth Scroll</option>
                     <option value="8">Pulse</option>
+                    <option value="9">Traditional</option>
+                    <option value="11">Color chase</option>
                     <!-- TODO Add more Patterns -->
                 </select>
                 <br />
@@ -74,6 +75,15 @@
 
     <script type="text/javascript">
 	console.log("TEST");
+
+        function updateTreeImage()
+        {
+            var img = document.getElementById("tree-image");
+            img.src = `/image?t=${Date().now}`;
+        }
+        // update the tree image every 10seconds
+        setInterval(updateTreeImage, 10000);
+
         function valCheck(str)
 {
 console.log("getting check " + str);
