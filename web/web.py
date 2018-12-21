@@ -3,8 +3,10 @@
 import json
 # import webcolors
 import re
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file
 from flask_cors import CORS
+import pygame
+import pygame.camera
 
 # file to write to
 FILE_PATH = 'data.json'
@@ -16,6 +18,22 @@ APP = Flask(__name__,static_url_path='/static',
             template_folder='templates')
 # allow cross origin requests, we need this because of jscolor
 CORS(APP)
+
+def get_image():
+    """
+    Uses the first camera to get an image and saves it to a file.
+    """
+    pygame.camera.init()
+    c = pygame.camera.list_cameras()
+    if c is None:
+        # no cameras found
+        return
+    # use the first camera, get the image and save it
+    cam = pygame.camera.Camera(c[0], (1280, 720))
+    cam.start()
+    img = cam.get_image()
+    pygame.image.save(img, "capture.jpg")
+    cam.stop()
 
 
 @APP.route('/', methods=['GET'])
@@ -30,7 +48,6 @@ def write(data):
         f.write(d)
         f.close()
 
-
 @APP.route('/state', methods=['GET'])
 def get_state():
     """
@@ -43,6 +60,13 @@ def get_state():
     with open(FILE_PATH, 'r') as f:
         return f.readlines()
 
+@APP.route('/image', methods=['GET'])
+def get_webcam():
+    """
+    Gets an image from the webcam
+    """
+    get_image()
+    return send_file('capture.jpg')
 
 def validate_state(data: dict):
     """
@@ -136,4 +160,4 @@ if __name__ == '__main__':
     # while we shouldn't require using the builtin server in production environment
     # I think that this is just fine for the use case that I require
     # we can just turn off debug mode in production
-    APP.run(debug=True, host='0.0.0.0', port=80)
+    APP.run(debug=False, host='0.0.0.0', port=80)

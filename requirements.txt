@@ -4,3 +4,4 @@ watchdog
 webcolors
 flask
 flask_cors
+pygame
