@@ -79,7 +79,7 @@
         function updateTreeImage()
         {
             var img = document.getElementById("tree-image");
-            img.src = `/image?t=${Date().now}`;
+            img.src = `/image?t=${Date.now()}`;
         }
         // update the tree image every 10seconds
         setInterval(updateTreeImage, 10000);
