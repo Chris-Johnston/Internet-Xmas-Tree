@@ -144,7 +144,8 @@ def post_state():
     """
     # from the request body, load some json
     try:
-        data = json.loads(request.data)
+        j = request.get_json(force=True)
+        data = json.loads(j)
         validate_state(data)
     except Exception as e:
         print(e)
