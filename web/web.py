@@ -74,27 +74,27 @@ def validate_state(data: dict):
 
     Throws an assertionerror if invalid
     """
-    assert isinstance(data, dict)
+    assert isinstance(data, dict), "Data was not a dict"
 
     # validate colors
-    assert data['color1'] is not None
-    assert re.match(regex_color, data['color1'])
-    assert data['color2'] is not None
-    assert re.match(regex_color, data['color2'])
+    assert data['color1'] is not None, "Color 1 was none."
+    assert re.match(regex_color, data['color1']), "Color 1 was invalid"
+    assert data['color2'] is not None, "Color 2 was none"
+    assert re.match(regex_color, data['color2']), "color 2 was invalid"
 
     # validate types for the values that we cast
     # this check is redundant when getting values from the form
     # but is not when we just get json from the user
-    assert isinstance(data['random1'], bool)
-    assert isinstance(data['random2'], bool)
-    assert isinstance(data['pattern'], int)
-    assert isinstance(data['length'], int)
-    assert isinstance(data['delay'], int)
+    assert isinstance(data['random1'], bool), "Random 1 was not a bool"
+    assert isinstance(data['random2'], bool), "random 2 was not a bool"
+    assert isinstance(data['pattern'], (int, float), "pattern was not an int"
+    assert isinstance(data['length'], (int, float)), "length was not int or float"
+    assert isinstance(data['delay'], (int, float)), "delay was not int or float"
 
     # check the bounds for some of the parameters
-    assert data['length'] > 0
-    assert data['delay'] >= 0
-    assert data['pattern'] >= 0
+    assert data['length'] > 0, "length out of bounds"
+    assert data['delay'] >= 0, "delay out of bounds"
+    assert data['pattern'] >= 0, "pattern invalid"
 
 @APP.route('/form', methods=['POST'])
 def form_state():
