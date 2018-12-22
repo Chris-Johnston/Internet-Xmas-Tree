@@ -147,7 +147,7 @@ def post_state():
         data = json.loads(request.data)
         print(data)
         validate_state(data)
-    except Exception e:
+    except Exception as e:
         print(e)
         # todo make this exception handling more specific
         # just return bad request, something was likely invalid
