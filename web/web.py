@@ -151,7 +151,7 @@ def post_state():
         print(e)
         # todo make this exception handling more specific
         # just return bad request, something was likely invalid
-        return 'Bad!', 400
+        return 'Bad! ' + str(e), 400
     # write this data to the state file if valid
     write(data)
     return json.dumps(data), 200
