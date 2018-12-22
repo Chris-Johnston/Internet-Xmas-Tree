@@ -122,9 +122,11 @@ return document.forms[0].elements[str].checked;
                 "length": val("len"),
                 "delay": val("delay")
             };
+            var toSend = JSON.stringify(body);
+            console.log(toSend);
 
             xmlHttp.open("POST", "/state", true);
-            xmlHttp.send(JSON.stringify(body));
+            xmlHttp.send(toSend);
             console.log("SENT!");
         }
 
