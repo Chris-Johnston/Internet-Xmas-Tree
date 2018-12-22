@@ -87,7 +87,7 @@ def validate_state(data: dict):
     # but is not when we just get json from the user
     assert isinstance(data['random1'], bool), "Random 1 was not a bool"
     assert isinstance(data['random2'], bool), "random 2 was not a bool"
-    assert isinstance(data['pattern'], (int, float), "pattern was not an int"
+    assert isinstance(data['pattern'], (int, float)), "pattern was not an int"
     assert isinstance(data['length'], (int, float)), "length was not int or float"
     assert isinstance(data['delay'], (int, float)), "delay was not int or float"
 
