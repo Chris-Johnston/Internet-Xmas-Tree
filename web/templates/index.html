@@ -119,8 +119,8 @@ return document.forms[0].elements[str].checked;
                 "pattern": Number(val("pattern")),
                 "random1": valCheck("random1"),
                 "random2": valCheck("random2"),
-                "length": val("len"),
-                "delay": val("delay")
+                "length": Number(val("len")),
+                "delay": Number(val("delay"))
             };
             var toSend = JSON.stringify(body);
             console.log(toSend);
