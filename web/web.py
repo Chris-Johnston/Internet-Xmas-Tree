@@ -94,7 +94,7 @@ def validate_state(data: dict):
     # check the bounds for some of the parameters
     assert data['length'] > 0
     assert data['delay'] >= 0
-    assert data['pattern'] > 0
+    assert data['pattern'] >= 0
 
 @APP.route('/form', methods=['POST'])
 def form_state():
@@ -145,8 +145,10 @@ def post_state():
     # from the request body, load some json
     try:
         data = json.loads(request.data)
+        print(data)
         validate_state(data)
-    except Exception:
+    except Exception e:
+        print(e)
         # todo make this exception handling more specific
         # just return bad request, something was likely invalid
         return 'Bad!', 400
