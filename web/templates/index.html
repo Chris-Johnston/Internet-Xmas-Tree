@@ -112,10 +112,19 @@ return document.forms[0].elements[str].checked;
 			console.log("GOT BACK");
 		}
             }
-            var request ="/form?color1=" + val("color1") + "&color2=" + val("color2") + "&pattern=" + val("pattern") + "&random1=" + valCheck("random1") + "&random2=" + valCheck("random2") + "&length=" + val("len") + "&delay=" + val("delay");
-            console.log("NEW REQUEST: " + request);
-            xmlHttp.open("GET", request, true);
-            xmlHttp.send(null);
+            
+            var body = {
+                "color1":val("color1"),
+                "color2":val("color2"),
+                "pattern": val("pattern"),
+                "random1": valCheck("random1"),
+                "random2": valCheck("random2"),
+                "length": val("len"),
+                "delay": val("delay")
+            };
+
+            xmlHttp.open("POST", "/state", true);
+            xmlHttp.send(JSON.stringify(body));
             console.log("SENT!");
         }
 
