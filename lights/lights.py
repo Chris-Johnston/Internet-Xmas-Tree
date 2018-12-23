@@ -14,6 +14,7 @@ import importlib
 from patterns.pattern import Pattern
 from config import Config
 from state import State
+from util import get_random_color
 
 patterns = [
     'patterns.blink',
@@ -29,7 +30,6 @@ patterns = [
     'patterns.colorbeams',
     ]
 
-# todo, need to go back and re-add support for getting random colors
 
 def update(strip, state, pattern_handlers):
     """
@@ -37,6 +37,11 @@ def update(strip, state, pattern_handlers):
     :param strip:
     :return:
     """
+    # update the random colors if used
+    if state.random1:
+        state.color1 = get_random_color()
+    if state.random2:
+        state.color2 = get_random_color()
     # run the update method for the pattern handler with the matching pattern id
     if state.pattern in pattern_handlers:
         pattern_handlers[state.pattern].update(strip, state)
