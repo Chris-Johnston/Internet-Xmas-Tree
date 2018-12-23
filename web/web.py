@@ -15,22 +15,27 @@ APP = Flask(__name__,static_url_path='/static',
 # allow cross origin requests, we need this because of jscolor
 CORS(APP)
 
+using_webcam = False
+
 def get_image():
     """
     Uses the first camera to get an image and saves it to a file.
     """
+    if using_webcam:
+        return
     pygame.camera.init()
     c = pygame.camera.list_cameras()
     if c is None:
         # no cameras found
         return
+    using_webcam = True
     # use the first camera, get the image and save it
     cam = pygame.camera.Camera(c[0], (1280, 720))
     cam.start()
     img = cam.get_image()
     pygame.image.save(img, "capture.jpg")
     cam.stop()
-
+    using_webcam = False
 
 @APP.route('/', methods=['GET'])
 def index():
