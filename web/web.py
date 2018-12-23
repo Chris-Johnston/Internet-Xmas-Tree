@@ -1,18 +1,14 @@
 #!/usr/bin/env python3.6
 
 import json
-# import webcolors
-import re
 from flask import Flask, request, render_template, send_file
 from flask_cors import CORS
+import webcolors
 import pygame
 import pygame.camera
 
 # file to write to
 FILE_PATH = 'data.json'
-
-# regex to match that colors are hexadecimal values
-regex_color = '^#[A-Fa-f0-9]{6}$'
 
 APP = Flask(__name__,static_url_path='/static',
             template_folder='templates')
@@ -78,9 +74,9 @@ def validate_state(data: dict):
 
     # validate colors
     assert data['color1'] is not None, "Color 1 was none."
-    assert re.match(regex_color, data['color1']), "Color 1 was invalid"
+    assert isinstance(data['color1'], (list, tuple)), "Color 1 was not a list of RGB"
     assert data['color2'] is not None, "Color 2 was none"
-    assert re.match(regex_color, data['color2']), "color 2 was invalid"
+    assert isinstance(data['color2'], (list, tuple)), "Color 2 was not a list of RGB"
 
     # validate types for the values that we cast
     # this check is redundant when getting values from the form
@@ -100,7 +96,8 @@ def validate_state(data: dict):
 def form_state():
     """
     POST /form
-    Request body are url encoded form params
+    Request body are url encoded form params.
+    Color1 and Color2 may be hex strings that start with #
 
     Updates the state using the form parameters.
     """
@@ -131,8 +128,8 @@ def post_state():
     Expects the following json from the request body
 
     {
-    "color1": "#00f00f",
-    "color2": "#00f00f",
+    "color1": [ 255, 0, 0],
+    "color2": [ 0, 255, 0]
     "random2": true,
     "random1": true,
     "length": 1,

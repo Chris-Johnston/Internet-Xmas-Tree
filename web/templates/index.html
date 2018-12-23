@@ -99,6 +99,19 @@ return document.forms[0].elements[str].checked;
 //            return document.getElementById(str).value;
         }
 
+        function toRGB(value)
+        {
+            // remove any leading #
+            value = value.replace("#", "");
+            // convert the given hexadecimal string into [R, G, B]
+            // this assumes that all digits are filled in, not using any kind of shorthand
+            var v = parseInt(value, 16);
+            var r = (v >> 16) & 255;
+            var g = (v >> 8) & 255;
+            var b = v & 255;
+            return [r, g, b];
+        }
+
         document.getElementById("btnSubmit").addEventListener("click", getRequest);
         // http://stackoverflow.com/questions/247483/http-get-request-in-javascript
         function getRequest()
@@ -112,10 +125,10 @@ return document.forms[0].elements[str].checked;
 			console.log("GOT BACK");
 		}
             }
-            
+
             var body = {
-                "color1": "#" + val("color1"),
-                "color2": "#" + val("color2"),
+                "color1": toRGB(val("color1")),
+                "color2": toRGB(val("color2")),
                 "pattern": Number(val("pattern")),
                 "random1": valCheck("random1"),
                 "random2": valCheck("random2"),

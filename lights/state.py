@@ -62,9 +62,8 @@ class State(object):
         # read from the file
         with open(self.file_path) as f:
             data = json.load(f)
-            # todo need to convert hex to tuples
-            # self.color1 = tuple(data['color1'])
-            # self.color2 = tuple(data['color2'])
+            self.color1 = tuple(data['color1'])
+            self.color2 = tuple(data['color2'])
             self.color1 = (255, 0, 0)
             self.color2 = (0, 255, 0)
             self.random1 = bool(data['random1'])
