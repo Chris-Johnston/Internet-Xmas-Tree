@@ -64,8 +64,6 @@ class State(object):
             data = json.load(f)
             self.color1 = tuple(data['color1'])
             self.color2 = tuple(data['color2'])
-            self.color1 = (255, 0, 0)
-            self.color2 = (0, 255, 0)
             self.random1 = bool(data['random1'])
             self.random2 = bool(data['random2'])
             self.pattern = int(data['pattern'])
