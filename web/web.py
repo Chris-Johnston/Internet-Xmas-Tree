@@ -21,6 +21,7 @@ def get_image():
     """
     Uses the first camera to get an image and saves it to a file.
     """
+    global using_webcam
     if using_webcam:
         return
     pygame.camera.init()
