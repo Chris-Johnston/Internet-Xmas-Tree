@@ -59,8 +59,7 @@ def get_state():
     This will just return the current state of the data file, without checking that it is valid json.
     Not sure if there is any point in converting from json back into json again.
     """
-    with open(FILE_PATH, 'r') as f:
-        return f.readlines()
+    return send_file(FILE_PATH)
 
 @APP.route('/image', methods=['GET'])
 def get_webcam():
