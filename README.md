@@ -1,5 +1,5 @@
 # Internet-Xmas-Tree
-Internet controlled animated Christmas tree lights using a Raspberry Pi and Python. In use since 2015.
+Web controlled animated Christmas tree lights using a Raspberry Pi and Python. In use since 2015.
 
 <img src="images/scrolling-colors.gif" alt="Animated preview of scrolling colors in on the tree."
  width="400" />
